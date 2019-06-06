@@ -1134,6 +1134,12 @@ MonoBehaviour:
       with a lattice grid.
   - index: 6
     info: A simple terrain is generated, then deformed with a lattice grid.
+  - index: 7
+    info: 2d version of the tile mesher. Generating a pattern from the template pieces.
+  - index: 8
+    info: A simple scene with the 2d Tile Mesher, using 2 tilesets (walkway, wall),
+      a Grid Mesher for the water and the ground. The center pieces for the walkway
+      are randomized.
   infoText: {fileID: 1919911900}
   infoBoard: {fileID: 1108133938}
 --- !u!4 &1759100197

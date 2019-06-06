@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/samples/tile_mesher_3d/06_terrain_lattice_deform/06.unity
     guid: b9e6e6de7895e85428d0982817334ebe
+  - enabled: 1
+    path: Assets/samples/tile_mesher_2d/01_template/01.unity
+    guid: 6c17f889b5baa354dbc885c5131d42c1
+  - enabled: 1
+    path: Assets/samples/tile_mesher_2d/02_dungeon/02.unity
+    guid: d03d90b9385bfc9418514352b42e90de
   m_configObjects: {}

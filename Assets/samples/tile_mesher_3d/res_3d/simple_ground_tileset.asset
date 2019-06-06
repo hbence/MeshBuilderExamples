@@ -23,7 +23,6 @@ MonoBehaviour:
     bottomConfig: 12
     variants:
     - {fileID: -4580698524428630020, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
-    - {fileID: -5257194990494378386, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
   - topConfig: 0
     bottomConfig: 13
     variants:
