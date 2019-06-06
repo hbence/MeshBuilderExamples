@@ -1,0 +1,46 @@
+*.blend1
+imgui.ini
+main-log.txt
+test.gid
+dll_debug/
+
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Library/
+ios_build/
+build_ios/
+Logs/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+*.tmp
+*.db
+*.ipch
+.vs/
+x64/
+Debug/
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

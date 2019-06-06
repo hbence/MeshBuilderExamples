@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048446701a639a449a21c1e56229ad83, type: 3}
+  m_Name: walkway_tileset
+  m_EditorClassIdentifier: 
+  themeName: walkway
+  type: 2
+  baseVariants:
+  - topConfig: 0
+    bottomConfig: 4
+    variants:
+    - {fileID: 6193456836056271624, guid: 8a2929c6fd016b543963e5b5491943c9, type: 3}
+  - topConfig: 0
+    bottomConfig: 5
+    variants:
+    - {fileID: -3205684331598960906, guid: 8a2929c6fd016b543963e5b5491943c9, type: 3}
+  - topConfig: 0
+    bottomConfig: 13
+    variants:
+    - {fileID: 2931279604318565626, guid: 8a2929c6fd016b543963e5b5491943c9, type: 3}
+  - topConfig: 0
+    bottomConfig: 15
+    variants:
+    - {fileID: 6121237971859687388, guid: 8a2929c6fd016b543963e5b5491943c9, type: 3}

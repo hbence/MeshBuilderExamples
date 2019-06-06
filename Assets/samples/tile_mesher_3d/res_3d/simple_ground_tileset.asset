@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048446701a639a449a21c1e56229ad83, type: 3}
+  m_Name: simple_ground_tileset
+  m_EditorClassIdentifier: 
+  themeName: ground
+  type: 4
+  baseVariants:
+  - topConfig: 0
+    bottomConfig: 4
+    variants:
+    - {fileID: -1155138555464481015, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 0
+    bottomConfig: 12
+    variants:
+    - {fileID: -4580698524428630020, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+    - {fileID: -5257194990494378386, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 0
+    bottomConfig: 13
+    variants:
+    - {fileID: -4960988577579963941, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 0
+    bottomConfig: 15
+    variants:
+    - {fileID: 4608957802044558727, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 1
+    bottomConfig: 13
+    variants:
+    - {fileID: -6781010551348336651, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 4
+    bottomConfig: 0
+    variants:
+    - {fileID: 7142811020288317484, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 4
+    bottomConfig: 4
+    variants:
+    - {fileID: 1453355968077631801, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 4
+    bottomConfig: 12
+    variants:
+    - {fileID: -2234048861815299684, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 4
+    bottomConfig: 13
+    variants:
+    - {fileID: -3917483529781860909, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 4
+    bottomConfig: 15
+    variants:
+    - {fileID: -6825579038494208452, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 5
+    bottomConfig: 0
+    variants:
+    - {fileID: 6359962852020929438, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 5
+    bottomConfig: 13
+    variants:
+    - {fileID: -5920475700858725074, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 5
+    bottomConfig: 15
+    variants:
+    - {fileID: 4027802259409932023, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 12
+    bottomConfig: 12
+    variants:
+    - {fileID: 1881961384097887000, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 13
+    bottomConfig: 0
+    variants:
+    - {fileID: 2944374132259253927, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 13
+    bottomConfig: 13
+    variants:
+    - {fileID: -5891561509029078303, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
+  - topConfig: 13
+    bottomConfig: 15
+    variants:
+    - {fileID: 106671229947668361, guid: 0760c1702ef938549a6a5a868e36f360, type: 3}
