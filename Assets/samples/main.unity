@@ -1133,7 +1133,8 @@ MonoBehaviour:
     info: Tile data generated twice with the template pieces. One version is deformed
       with a lattice grid.
   - index: 6
-    info: A simple terrain is generated, then deformed with a lattice grid.
+    info: A simple terrain is generated. Then a lattice grid snapshot is taken. After
+      this, the effects of the lattice deformation can be controlled with a slider.
   - index: 7
     info: 2d version of the tile mesher. Generating a pattern from the template pieces.
   - index: 8

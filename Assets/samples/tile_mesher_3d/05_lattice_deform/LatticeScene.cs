@@ -25,7 +25,7 @@ public class LatticeScene : MonoBehaviour
 
     [Header("lattice")]
     [SerializeField]
-    private LatticeGrid latticeControl = null;
+    private LatticeGridComponent latticeControl = null;
     [SerializeField]
     private VertexGridAsset startLattice = null;
     [SerializeField]
@@ -92,7 +92,6 @@ public class LatticeScene : MonoBehaviour
 
         data.SetRect(FillValue, P(12, 1, 2), 2, 7);
         data.SetCube(FillValue, P(4, 0, 3), Column);
-        data.SetCube(FillValue, P(12, 0, 4), Column);
         data.SetCube(FillValue, P(2, 0, 10), Column);
 
         data.SetRect(FillValue, P(1, 4, 6), 6, 6);

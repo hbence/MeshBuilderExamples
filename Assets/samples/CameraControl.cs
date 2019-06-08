@@ -7,22 +7,25 @@ public class CameraControl : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 10f;
 
+    private bool wasDown = false;
     private Vector3 lastMouse;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (IsMouseDown())
         {
+            wasDown = true;
             lastMouse = Input.mousePosition;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && wasDown)
         {
             var delta = (lastMouse - Input.mousePosition) * mouseMoveScale;
             delta.z = delta.y;
             delta.y = 0;
             transform.position += delta;
             lastMouse = Input.mousePosition;
+            wasDown = false;
         }
         else
         {
@@ -36,5 +39,10 @@ public class CameraControl : MonoBehaviour
 
             transform.position += movement * Time.deltaTime;
         }
+    }
+
+    private bool IsMouseDown()
+    {
+        return Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
     }
 }

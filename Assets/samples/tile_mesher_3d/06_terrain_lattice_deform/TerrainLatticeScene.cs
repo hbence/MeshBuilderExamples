@@ -40,19 +40,26 @@ public class TerrainLatticeScene : MonoBehaviour
 
     [Header("lattice")]
     [SerializeField]
-    private LatticeGrid groundLattice = null;
-    [SerializeField]
-    private LatticeGrid grassLattice = null;
+    private LatticeGridComponent lattice = null;
     [SerializeField]
     private VertexGridAsset startGrid = null;
     [SerializeField]
     private VertexGridAsset endGrid = null;
+    [SerializeField, Range(0,1)]
+    private float gridLerp = 1;
+
+    private float lastLerpValue = 0;
 
     private Extents dataExtents;
     private DataVolume dataVolume;
 
     private List<BuiltMesh> builders;
-    private int generationStep = 0;
+    private bool buildingComplete = false;
+
+    private LatticeGridComponent.VertexGrid targetGrid;
+
+    private LatticeGridModifier groundModifier;
+    private LatticeGridModifier grassModifier;
 
     void Awake()
     {
@@ -88,6 +95,11 @@ public class TerrainLatticeScene : MonoBehaviour
         {
             built.Start();
         }
+
+        targetGrid = new LatticeGridComponent.VertexGrid(startGrid.Grid);
+
+        groundModifier = new LatticeGridModifier();
+        grassModifier = new LatticeGridModifier();
     }
 
     private void Add(Builder builder, MeshFilter filter)
@@ -104,30 +116,82 @@ public class TerrainLatticeScene : MonoBehaviour
             builder.Dispose();
         }
         builders.Clear();
+
+        groundModifier.Dispose();
+        grassModifier.Dispose();
+    }
+
+    private void Update()
+    {
+        if (lastLerpValue != gridLerp)
+        {
+            if (buildingComplete && !groundModifier.IsGenerating)
+            {
+                lastLerpValue = gridLerp;
+                ApplyLerpValue();
+            }
+        }
+    }
+
+    public void ChangeLerpValue(float value)
+    {
+        value = Mathf.Clamp01(value);
+        gridLerp = value;
+        lastLerpValue = value;
+        ApplyLerpValue();
+    }
+
+    private void ApplyLerpValue()
+    {
+        RecalcTargetGrid();
+
+        groundModifier.InitForEvaluation(lattice.transform, targetGrid, groundMeshFilter.transform);
+        groundModifier.Start(groundMeshFilter.sharedMesh);
+
+        grassModifier.InitForEvaluation(lattice.transform, targetGrid, groundTopMeshFilter.transform);
+        grassModifier.Start(groundTopMeshFilter.sharedMesh);
     }
 
     void LateUpdate()
     {
-        switch(generationStep)
+        if (groundModifier.IsGenerating)
         {
-            case 0: CompleteBuilders(); break;
-            case 1:
-                {
-                    FirstGridSnapshot(groundLattice, groundMeshFilter);
-                    FirstGridSnapshot(grassLattice, groundTopMeshFilter);
-                    break;
-                }
-            case 2:
-                {
-                    SecondGridEvaluation(groundLattice, groundMeshFilter);
-                    SecondGridEvaluation(grassLattice, groundTopMeshFilter);
-                    break;
-                }
+            groundModifier.Complete();
+        }
+        if (grassModifier.IsGenerating)
+        {
+            grassModifier.Complete();
         }
 
-        if (generationStep < 3)
+        if (!buildingComplete)
         {
-            ++generationStep;
+            buildingComplete = true;
+            CompleteBuilders();
+
+            int3 extents = new int3(lattice.XLength, lattice.YLength, lattice.ZLength);
+            groundModifier.InitForSnapshot(lattice.transform, extents, lattice.CellSize, groundMeshFilter.transform);
+            groundModifier.Start(groundMeshFilter.sharedMesh);
+            grassModifier.InitForSnapshot(lattice.transform, extents, lattice.CellSize, groundTopMeshFilter.transform);
+            grassModifier.Start(groundTopMeshFilter.sharedMesh);
+        }
+    }
+
+    private void CompleteBuilders()
+    {
+        foreach (var builder in builders)
+        {
+            if (builder.IsGenerating)
+            {
+                builder.Complete();
+            }
+        }
+    }
+
+    private void RecalcTargetGrid()
+    {
+        for (int i = 0; i < targetGrid.Vertices.Length; ++i)
+        {
+            targetGrid.Vertices[i] = Vector3.Lerp(startGrid.Grid.Vertices[i], endGrid.Grid.Vertices[i], gridLerp);
         }
     }
 
@@ -150,36 +214,8 @@ public class TerrainLatticeScene : MonoBehaviour
         data.SetCube(GroundIndex, P(14, 1, 2), S(1, 2, 7));
     }
 
-    private void CompleteBuilders()
-    {
-        foreach (var builder in builders)
-        {
-            if (builder.IsGenerating)
-            {
-                builder.Complete();
-            }
-        }
-    }
-
-    private void FirstGridSnapshot(LatticeGrid latticeControl, MeshFilter meshFilter)
-    {
-        if (latticeControl != null)
-        {
-            latticeControl.target = meshFilter;
-            latticeControl.CopyFrom(startGrid.Grid);
-            latticeControl.TakeTargetSnapshot();
-        }
-    }
-
-    private void SecondGridEvaluation(LatticeGrid latticeControl, MeshFilter meshFilter)
-    {
-        if (latticeControl != null)
-        {
-            latticeControl.CopyFrom(endGrid.Grid);
-            latticeControl.UpdateTargetSnapshotVertices();
-        }
-    }
-
+    private static int3 P(int x, int y, int z) { return new int3(x, y, z); }
+    private static int3 S(int x, int y, int z) { return new int3(x, y, z); }
     private int3 Column = new int3(1, 4, 1);
 
     private class BuiltMesh
@@ -224,7 +260,4 @@ public class TerrainLatticeScene : MonoBehaviour
             aligner?.Dispose();
         }
     }
-
-    private static int3 P(int x, int y, int z) { return new int3(x, y, z); }
-    private static int3 S(int x, int y, int z) { return new int3(x, y, z); }
 }
