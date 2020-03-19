@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -44,7 +45,6 @@ public class GroundTestScene : MonoBehaviour
     private DataVolume dataVolume;
 
     private List<BuiltMesh> builders;
-    private bool building = true;
 
     void Awake()
     {
@@ -84,6 +84,23 @@ public class GroundTestScene : MonoBehaviour
         {
             built.Start();
         }
+
+        StartCoroutine(CompleteMesh());
+    }
+
+    private IEnumerator CompleteMesh()
+    {
+        yield return new WaitForEndOfFrame();
+
+        foreach (var builder in builders)
+        {
+            if (builder.IsGenerating)
+            {
+                builder.Complete();
+            }
+        }
+
+        yield return null;
     }
 
     private void Add(Builder builder, MeshFilter filter)
@@ -100,21 +117,6 @@ public class GroundTestScene : MonoBehaviour
             builder.Dispose();
         }
         builders.Clear();
-    }
-
-    void LateUpdate()
-    {
-        if (building)
-        {
-            foreach(var builder in builders)
-            {
-                if (builder.IsGenerating)
-                {
-                    builder.Complete();
-                }
-            }
-            building = false;
-        }
     }
 
     private void FillData(DataVolume data)

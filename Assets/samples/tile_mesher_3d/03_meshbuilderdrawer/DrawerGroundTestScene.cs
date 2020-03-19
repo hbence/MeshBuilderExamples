@@ -1,4 +1,6 @@
-﻿using Unity.Mathematics;
+﻿using System.Collections;
+
+using Unity.Mathematics;
 using UnityEngine;
 
 using MeshBuilderTest;
@@ -46,7 +48,6 @@ public class DrawerGroundTestScene : MonoBehaviour
     private DataVolume dataVolume;
 
     private MeshBuilderDrawerComponent drawerComponent;
-    private bool building = true;
 
     void Awake()
     {
@@ -86,6 +87,23 @@ public class DrawerGroundTestScene : MonoBehaviour
         {
             drawer.StartBuilder();
         }
+
+        StartCoroutine(CompleteMesh());
+    }
+
+    private IEnumerator CompleteMesh()
+    {
+        yield return new WaitForEndOfFrame();
+
+        foreach (var drawer in drawerComponent.Drawers)
+        {
+            if (drawer.IsBuilderGenerating)
+            {
+                drawer.CompleteBuilder();
+            }
+        }
+
+        yield return null;
     }
 
     private void Add(Builder builder, RenderInfo renderInfo)
@@ -102,21 +120,6 @@ public class DrawerGroundTestScene : MonoBehaviour
             drawer.Dispose();
         }
         drawerComponent.RemoveAll();
-    }
-
-    void LateUpdate()
-    {
-        if (building)
-        {
-            foreach(var drawer in drawerComponent.Drawers)
-            {
-                if (drawer.IsBuilderGenerating)
-                {
-                    drawer.CompleteBuilder();
-                }
-            }
-            building = false;
-        }
     }
 
     private void FillData(DataVolume data)

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+
+using UnityEngine;
 using Unity.Mathematics;
 
 using MeshBuilderTest;
@@ -37,8 +39,6 @@ public class LatticeScene : MonoBehaviour
     private Mesh mesh;
     private TileMesher3D mesher;
 
-    private int generationStep = 0;
-
     void Awake()
     {
         dataExtents = new Extents(16, 8, 16);
@@ -50,6 +50,22 @@ public class LatticeScene : MonoBehaviour
         mesher = new TileMesher3D();
         mesher.Init(dataVolume, FillValue, theme, cellSize);
         mesher.Start();
+
+        StartCoroutine(CompleteMesh());
+    }
+
+    private IEnumerator CompleteMesh()
+    {
+        yield return new WaitForEndOfFrame();
+        CompleteMesher();
+
+        yield return new WaitForEndOfFrame();
+        FirstGridSnapshot();
+
+        yield return new WaitForEndOfFrame();
+        SecondGridEvaluation();
+
+        yield return null;
     }
 
     private void OnDestroy()
@@ -57,22 +73,7 @@ public class LatticeScene : MonoBehaviour
         dataVolume.Dispose();
         mesher.Dispose();
     }
-
-    void LateUpdate()
-    {
-        switch (generationStep)
-        {
-            case 0: CompleteMesher(); break;
-            case 1: FirstGridSnapshot(); break;
-            case 2: SecondGridEvaluation(); break;
-        }
-
-        if (generationStep < 3)
-        {
-            ++generationStep;
-        }
-    }
-
+    
     private void FillData(DataVolume data)
     {
         data.SetLayer(FillValue, 0);

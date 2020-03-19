@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Unity.Mathematics;
 
 using MeshBuilderTest;
@@ -26,7 +27,6 @@ public class TemplateScene : MonoBehaviour
     private Extents dataExtents;
     private DataVolume dataVolume;
 
-    private bool building = true;
     private Mesh mesh;
     private TileMesher3D mesher;
 
@@ -41,25 +41,30 @@ public class TemplateScene : MonoBehaviour
         mesher = new TileMesher3D();
         mesher.Init(dataVolume, FillValue, theme, cellSize);
         mesher.Start();
+
+        StartCoroutine(CompleteMesh());
     }
 
-    private void OnDestroy()
+    private IEnumerator CompleteMesh()
     {
-        dataVolume.Dispose();
-        mesher.Dispose();
-    }
+        yield return new WaitForEndOfFrame();
 
-    void LateUpdate()
-    {
-        if (building)
+        if (mesher.IsGenerating)
         {
             if (mesher.IsGenerating)
             {
                 mesher.Complete(mesh);
                 meshFilter.sharedMesh = mesh;
             }
-            building = false;
         }
+
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        dataVolume.Dispose();
+        mesher.Dispose();
     }
 
     private void FillData(DataVolume data)

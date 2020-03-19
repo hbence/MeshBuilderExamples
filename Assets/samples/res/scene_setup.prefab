@@ -189,4 +189,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseMoveScale: 0.1
-  movementSpeed: 10
+  movementSpeed: 2

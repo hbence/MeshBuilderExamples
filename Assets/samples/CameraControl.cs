@@ -2,6 +2,8 @@
 
 public class CameraControl : MonoBehaviour
 {
+    private const int LeftButton = 0;
+
     [SerializeField]
     private float mouseMoveScale = 0.1f;
     [SerializeField]
@@ -18,14 +20,18 @@ public class CameraControl : MonoBehaviour
             lastMouse = Input.mousePosition;
         }
 
-        if (Input.GetMouseButton(0) && wasDown)
+        if (Input.GetMouseButtonUp(LeftButton))
+        {
+            wasDown = false;
+        }
+
+        if (Input.GetMouseButton(LeftButton) && wasDown)
         {
             var delta = (lastMouse - Input.mousePosition) * mouseMoveScale;
             delta.z = delta.y;
             delta.y = 0;
             transform.position += delta;
             lastMouse = Input.mousePosition;
-            wasDown = false;
         }
         else
         {
@@ -43,6 +49,6 @@ public class CameraControl : MonoBehaviour
 
     private bool IsMouseDown()
     {
-        return Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        return Input.GetMouseButtonDown(0) && (UnityEngine.EventSystems.EventSystem.current == null || !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject());
     }
 }

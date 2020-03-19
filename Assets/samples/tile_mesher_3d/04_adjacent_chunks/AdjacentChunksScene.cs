@@ -1,4 +1,6 @@
-﻿using Unity.Mathematics;
+﻿using System.Collections;
+
+using Unity.Mathematics;
 using UnityEngine;
 
 using MeshBuilderTest;
@@ -44,7 +46,6 @@ public class AdjacentChunksScene : MonoBehaviour
     private DataVolume dataVolume2;
 
     private Chunk[] chunks;
-    private bool building = true;
 
     void Awake()
     {
@@ -78,8 +79,22 @@ public class AdjacentChunksScene : MonoBehaviour
             }
             chunk.StartBuilding();
         }
+
+        StartCoroutine(CompleteMesh());
     }
-    
+
+    private IEnumerator CompleteMesh()
+    {
+        yield return new WaitForEndOfFrame();
+
+        foreach (var chunk in chunks)
+        {
+            chunk.Complete();
+        }
+
+        yield return null;
+    }
+
     private void OnDestroy()
     {
         dataVolume1.Dispose();
@@ -87,19 +102,6 @@ public class AdjacentChunksScene : MonoBehaviour
         foreach(var chunk in chunks)
         {
             chunk.Dispose();
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (building)
-        {
-            foreach(var chunk in chunks)
-            {
-                chunk.Complete();
-            }
-
-            building = false;
         }
     }
 
