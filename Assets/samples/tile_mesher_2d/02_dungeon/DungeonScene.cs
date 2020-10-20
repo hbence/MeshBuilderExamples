@@ -56,7 +56,7 @@ public class DungeonScene: MonoBehaviour
         FillData(dataVolume);
 
         var walkwayMesher = new TileMesher2D();
-        walkwayMesher.Init(dataVolume, 0, WalkwayFill, walkwayTheme, new TileMesher2D.Settings { centerRandomRotation = true });
+        walkwayMesher.Init(dataVolume, 0, WalkwayFill, walkwayTheme, cellSize, new TileMesher2D.Settings { centerRandomRotation = true });
         Add(walkwayMesher, walkway);
 
         var walkwayBgMesher = new GridMesher();
@@ -69,7 +69,7 @@ public class DungeonScene: MonoBehaviour
         Add(waterMesher, water);
 
         var wallMesher = new TileMesher2D();
-        wallMesher.Init(dataVolume, 0, WallFill, wallTheme, new TileMesher2D.Settings() { emptyBoundaries = Tile.Direction.None });
+        wallMesher.Init(dataVolume, 0, WallFill, wallTheme, cellSize, new TileMesher2D.Settings() { emptyBoundaries = Tile.Direction.None });
         Add(wallMesher, wall);
 
         foreach (var drawer in drawerComponent.Drawers)
