@@ -120,6 +120,85 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &287903259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287903260}
+  - component: {fileID: 287903262}
+  - component: {fileID: 287903261}
+  m_Layer: 5
+  m_Name: title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &287903260
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287903259}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1108133938}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 165}
+  m_SizeDelta: {x: 200, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &287903261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287903259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: title
+--- !u!222 &287903262
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287903259}
+  m_CullTransparentMesh: 0
 --- !u!1 &408165025
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +291,7 @@ GameObject:
   - component: {fileID: 415104145}
   - component: {fileID: 415104144}
   m_Layer: 5
-  m_Name: prev
+  m_Name: prev_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -344,7 +423,7 @@ GameObject:
   - component: {fileID: 823540936}
   - component: {fileID: 823540935}
   m_Layer: 5
-  m_Name: next
+  m_Name: next_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +633,7 @@ GameObject:
   - component: {fileID: 961171192}
   - component: {fileID: 961171191}
   m_Layer: 5
-  m_Name: Text
+  m_Name: cam_movement_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,7 +651,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1046283202}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -713,8 +792,8 @@ RectTransform:
   m_Children:
   - {fileID: 415104143}
   - {fileID: 823540934}
-  - {fileID: 961171190}
   - {fileID: 1338072716}
+  - {fileID: 961171190}
   - {fileID: 1108133938}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -754,6 +833,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1919911899}
+  - {fileID: 287903260}
   m_Father: {fileID: 1046283202}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -812,7 +892,7 @@ GameObject:
   - component: {fileID: 1338072718}
   - component: {fileID: 1338072717}
   m_Layer: 5
-  m_Name: info
+  m_Name: info_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -831,7 +911,7 @@ RectTransform:
   m_Children:
   - {fileID: 408165026}
   m_Father: {fileID: 1046283202}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1113,35 +1193,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83679138e47762244b560fb17f4b540b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 1350383740}
   scenes:
-  - index: 1
-    info: Generate a mesh from a 3d tile array. The pieces are from the 3d Tile Mesher
-      template and cover every configuration.
-  - index: 2
-    info: Generate a simple scene with 3 different tiles. The water uses a GridMesher,
-      the ground uses a combination of a TileMesher3D and a GridMesher. Every generated
-      mesh is rendered with a separate MeshRenderer from a MeshFilter.
-  - index: 3
-    info: The same as the previous scene, except everything is set up in code, and
-      rendered with a MeshBuilderDrawer.
-  - index: 4
-    info: Similarly drawn as the previous scene, except everything is handled by a
-      simple Chunk class and the chunks are set as adjacents, so the generated meshes
-      connect. The chunks have their own Transform so they can be pulled apart for
-      inspection.
-  - index: 5
-    info: Tile data generated twice with the template pieces. One version is deformed
-      with a lattice grid.
-  - index: 6
-    info: A simple terrain is generated. Then a lattice grid snapshot is taken. After
-      this, the effects of the lattice deformation can be controlled with a slider.
-  - index: 7
-    info: 2d version of the tile mesher. Generating a pattern from the template pieces.
-  - index: 8
-    info: A simple scene with the 2d Tile Mesher, using 2 tilesets (walkway, wall),
-      a Grid Mesher for the water and the ground. The center pieces for the walkway
-      are randomized.
+  - {fileID: 11400000, guid: e71318eac3c7a42e3b81168d79a189b2, type: 2}
+  - {fileID: 11400000, guid: e83599b019f5a4860a4fd3d2cb748a88, type: 2}
+  - {fileID: 11400000, guid: 8410a1160cceb416190959d3fd35b0e8, type: 2}
+  - {fileID: 11400000, guid: 2bb7214b0c1b7489baeb0eb79d5590a6, type: 2}
+  - {fileID: 11400000, guid: fbcd71bf25eae4ffb816115a7b925310, type: 2}
+  - {fileID: 11400000, guid: e67101dfba93646d8851d2c275f322a0, type: 2}
+  - {fileID: 11400000, guid: c62a43a1ad2a64876bb751de28c05a10, type: 2}
+  - {fileID: 11400000, guid: 4f9b0a1eda2be494182666ecfb86382f, type: 2}
+  - {fileID: 11400000, guid: 1218bc1e007a644b9a3b30adc4f4bf77, type: 2}
+  - {fileID: 11400000, guid: aa7d672436f7e4e7f827f1b0d1289e2a, type: 2}
   infoText: {fileID: 1919911900}
+  titleText: {fileID: 287903261}
   infoBoard: {fileID: 1108133938}
 --- !u!4 &1759100197
 Transform:

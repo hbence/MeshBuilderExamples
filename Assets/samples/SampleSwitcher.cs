@@ -3,31 +3,34 @@ using UnityEngine.SceneManagement;
 
 public class SampleSwitcher : MonoBehaviour
 {
-    [SerializeField]
-    private SceneInfo[] scenes = null;
-    [SerializeField]
-    private UnityEngine.UI.Text infoText = null;
-    [SerializeField]
-    private Transform infoBoard = null;
+    [SerializeField] private Camera cam = null;
+    [SerializeField] private SceneInfo[] scenes = null;
+    [SerializeField] private UnityEngine.UI.Text infoText = null;
+    [SerializeField] private UnityEngine.UI.Text titleText = null;
+    [SerializeField] private Transform infoBoard = null;
 
     private int currentLoaded = -1;
 
     void Start()
     {
         Load(0);
+
+        SceneManager.sceneLoaded += (Scene, LoadSceneMode) => { cam.gameObject.SetActive(false); };
+        SceneManager.sceneUnloaded += (Scene) => { cam.gameObject.SetActive(true); };
     }
 
     private void Load(int index)
     {
         if (CurrentInfo != null)
         {
-            SceneManager.UnloadSceneAsync(CurrentInfo.index);
+            SceneManager.UnloadSceneAsync(CurrentInfo.SceneIndex);
         }
 
         currentLoaded = index;
-        SceneManager.LoadSceneAsync(CurrentInfo.index, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(CurrentInfo.SceneIndex, LoadSceneMode.Additive);
 
-        infoText.text = CurrentInfo.info;
+        infoText.text = CurrentInfo.Info;
+        titleText.text = CurrentInfo.SceneTitle;
     }
 
     public void Next()
@@ -48,12 +51,4 @@ public class SampleSwitcher : MonoBehaviour
     }
 
     private SceneInfo CurrentInfo { get => currentLoaded >= 0 ? scenes[currentLoaded] : null; }
-
-    [System.Serializable]
-    public class SceneInfo
-    {
-        public int index;
-        [TextArea]
-        public string info;
-    }
 }

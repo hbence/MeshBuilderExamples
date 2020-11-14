@@ -12,25 +12,26 @@ using Extents = MeshBuilder.Extents;
 using RenderInfo = MeshBuilder.MeshBuilderDrawer.RenderInfo;
 using Dir = MeshBuilder.Tile.Direction;
 
-public class AdjacentChunksScene : MonoBehaviour
+public class AdjacentChunksVisibilityScene : MonoBehaviour
 {
     private const int GroundIndex = 1;
     private const int WaterIndex = 2;
     private const int RockIndex = 3;
 
+    private const float sideSize = 16f;
+
+    [SerializeField] private Camera cam = null;
+
     [Header("render info")]
-    [SerializeField]
-    private RenderInfo ground = null;
-    [SerializeField]
-    private RenderInfo grass = null;
-    [SerializeField]
-    private RenderInfo water = null;
-    [SerializeField]
-    private RenderInfo rock = null;
+    [SerializeField] private RenderInfo ground = null;
+    [SerializeField] private RenderInfo grass = null;
+    [SerializeField] private RenderInfo water = null;
+    [SerializeField] private RenderInfo rock = null;
 
     [Header("generation info")]
-    [SerializeField]
-    private TileThemePalette palette = null;
+    [SerializeField] private int colNum = 2;
+    [SerializeField] private int rowNum = 2;
+    [SerializeField] private TileThemePalette palette = null;
 
     [SerializeField]
     private Vector3 cellSize = new Vector3(1, 1, 1);
@@ -47,8 +48,20 @@ public class AdjacentChunksScene : MonoBehaviour
 
     private Chunk[] chunks;
 
+    private Plane gamePlane;
+
+    private Plane[] frustumPlanes;
+
     void Awake()
     {
+        if (cam == null)
+        {
+            cam = Camera.main;
+        }
+
+        gamePlane = new Plane(Vector3.up, 0);
+        frustumPlanes = new Plane[6];
+
         dataExtents = new Extents(16, 4, 16);
         dataVolume1 = new DataVolume(dataExtents);
         FillData1(dataVolume1);
@@ -58,38 +71,56 @@ public class AdjacentChunksScene : MonoBehaviour
 
         var info = Chunk.CreateInfo(palette, cellSize, groundHeightMap, groundMaxHeight, ground, grass, water, rock);
 
-        float offset = 2f;
+        int length = colNum * rowNum;
 
-        chunks = new Chunk[4];
-        chunks[0] = new Chunk(new float3(0, 0, 0), new float3(0 - offset, 0, 0-offset), transform, dataVolume1, info);
-        chunks[1] = new Chunk(new float3(0, 0, 16), new float3(0 - offset, 0, 16 + offset), transform, dataVolume2, info);
-        chunks[2] = new Chunk(new float3(16, 0, 0), new float3(16 + offset, 0, 0 - offset), transform, dataVolume2, info);
-        chunks[3] = new Chunk(new float3(16, 0, 16), new float3(16 + offset, 0, 16 + offset), transform, dataVolume1, info);
-    
-        foreach (var chunk in chunks)
+        chunks = new Chunk[length];
+        for (int row = 0; row < rowNum; ++row)
         {
-            foreach (var adj in chunks)
+            for (int col = 0; col < colNum; ++col)
             {
-                if (chunk == adj) continue;
-
-                byte dir = 0;
-                if (adj.Position.x > chunk.Position.x) dir |= (byte)Dir.XPlus;
-                if (adj.Position.x < chunk.Position.x) dir |= (byte)Dir.XMinus;
-                if (adj.Position.z > chunk.Position.z) dir |= (byte)Dir.ZPlus;
-                if (adj.Position.z < chunk.Position.z) dir |= (byte)Dir.ZMinus;
-                chunk.SetAdjacent(adj.Data, dir);
+                int i = row * colNum + col;
+                DataVolume data = (col + row) % 2 == 0 ? dataVolume1 : dataVolume2;
+                chunks[i] = new Chunk(new float3(col * sideSize, 0, row * sideSize), transform, data, info);
             }
-            chunk.StartBuilding();
+        }
+
+        for (int row = 0; row < rowNum; ++row)
+        {
+            for (int col = 0; col < colNum; ++col)
+            {
+                int i = row * colNum + col;
+                Chunk chunk = chunks[i];
+
+                SetAdjacent(chunk, col, row, -1, -1);
+                SetAdjacent(chunk, col, row,  0, -1);
+                SetAdjacent(chunk, col, row,  1, -1);
+                SetAdjacent(chunk, col, row, -1,  0);
+                SetAdjacent(chunk, col, row,  1,  0);
+                SetAdjacent(chunk, col, row, -1,  1);
+                SetAdjacent(chunk, col, row,  0,  1);
+                SetAdjacent(chunk, col, row,  1,  1);
+
+                chunk.StartBuilding();
+            }
         }
 
         StartCoroutine(CompleteMesh());
     }
 
-    public void OnOffsetChange(float value)
+    private void SetAdjacent(Chunk chunk, int x, int z, int stepX, int stepZ)
     {
-        foreach(var chunk in chunks)
+        int adjX = x + stepX;
+        int adjZ = z + stepZ;
+        if (adjX >= 0 && adjX < colNum && adjZ >= 0 && adjZ < rowNum)
         {
-            chunk.OffsetRatio = value;
+            Chunk adj = chunks[adjZ * colNum + adjX];
+
+            byte dir = 0;
+            if (stepX > 0) dir |= (byte)Dir.XPlus;
+            if (stepX < 0) dir |= (byte)Dir.XMinus;
+            if (stepZ > 0) dir |= (byte)Dir.ZPlus;
+            if (stepZ < 0) dir |= (byte)Dir.ZMinus;
+            chunk.SetAdjacent(adj.Data, dir);
         }
     }
 
@@ -103,6 +134,43 @@ public class AdjacentChunksScene : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    private void LateUpdate()
+    {
+        CullChunks();
+    }
+
+    private void CullChunks()
+    {
+        GeometryUtility.CalculateFrustumPlanes(cam, frustumPlanes);
+        foreach (var chunk in chunks)
+        {
+            chunk.IsVisible = GeometryUtility.TestPlanesAABB(frustumPlanes, chunk.Bounds);
+        }
+
+        /*
+        Vector3 bl = ViewCoordToWorldPos(0, 0);
+        Vector3 br = ViewCoordToWorldPos(1, 0);
+        Vector3 tl = ViewCoordToWorldPos(0, 1);
+        Vector3 tr = ViewCoordToWorldPos(1, 1);
+        Rect r = Rect.MinMaxRect(
+            Mathf.Min(bl.x, tl.x), Mathf.Min(bl.z, br.z),
+            Mathf.Max(br.x, tr.x), Mathf.Max(tl.z, tr.z)
+            );
+        foreach(var chunk in chunks)
+        {
+            chunk.IsVisible = r.Overlaps(chunk.Rect);
+        }
+        */
+    }
+
+    private Vector3 ViewCoordToWorldPos(float x, float y)
+    {
+        var ray = cam.ViewportPointToRay(new Vector3(x, y));
+        float enter;
+        gamePlane.Raycast(ray, out enter);
+        return ray.GetPoint(enter);
     }
 
     private void OnDestroy()
@@ -171,32 +239,31 @@ public class AdjacentChunksScene : MonoBehaviour
 
     private class Chunk
     {
+        static private readonly float3 Size = new Vector3(sideSize, 4, sideSize);
+
         private MeshBuilderDrawerComponent drawerComponent;
+
+        public bool IsVisible { get => drawerComponent.gameObject.activeSelf; set => drawerComponent.gameObject.SetActive(value); }
+
         public DataVolume Data { get; private set; }
         public bool IsBuilding { get; private set; }
         public float3 Position { get => drawerComponent.transform.position; }
 
-        public Transform Transform { get; private set; }
-
         private TileMesher3D ground;
 
-        private float3 originalPosition;
-        private float3 offsetPosition;
+        public Bounds Bounds { get; private set; }
 
-        public float OffsetRatio { set { drawerComponent.transform.position = Vector3.Lerp(originalPosition, offsetPosition, value); } }
-
-        public Chunk(float3 pos, float3 offsetPos, Transform root, DataVolume data, CreationInfo info)
+        public Chunk(float3 pos, Transform root, DataVolume data, CreationInfo info)
         {
             Data = data;
 
-            originalPosition = pos;
-            offsetPosition = offsetPos;
+            Transform transform = new GameObject("chunk").transform;
+            transform.SetParent(root);
+            transform.position = pos;
 
-            Transform = new GameObject("chunk").transform;
-            Transform.SetParent(root);
-            Transform.position = pos;
+            Bounds = new Bounds(pos + Size * 0.5f, Size);
 
-            drawerComponent = Transform.gameObject.AddComponent<MeshBuilderDrawerComponent>();
+            drawerComponent = transform.gameObject.AddComponent<MeshBuilderDrawerComponent>();
 
             var groundMesher = new TileMesher3D();
             groundMesher.Init(data, 0, info.palette, info.cellSize,

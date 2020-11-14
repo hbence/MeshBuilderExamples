@@ -36,7 +36,7 @@ public class Template2DScene : MonoBehaviour
         mesh = new Mesh();
 
         mesher = new TileMesher2D();
-        mesher.Init(dataVolume, 0, FillValue, theme);
+        mesher.Init(dataVolume, 0, FillValue, theme, new float3(1, 1, 1));
         mesher.Start();
     }
 
