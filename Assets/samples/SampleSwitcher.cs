@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SampleSwitcher : MonoBehaviour
 {
+    private const int SceneListBtnGap = 4;
+
     [SerializeField] private Camera cam = null;
     [SerializeField] private SceneInfo[] scenes = null;
-    [SerializeField] private UnityEngine.UI.Text infoText = null;
-    [SerializeField] private UnityEngine.UI.Text titleText = null;
+    [Header("ui")]
+    [SerializeField] private Text infoText = null;
+    [SerializeField] private Text titleText = null;
     [SerializeField] private Transform infoBoard = null;
+    [SerializeField] private GameObject sceneSelect = null;
+    [SerializeField] private GameObject btnPrototype = null;
+    [SerializeField] private Transform sceneSelectRoot = null;
 
     private int currentLoaded = -1;
 
@@ -17,6 +24,8 @@ public class SampleSwitcher : MonoBehaviour
 
         SceneManager.sceneLoaded += (Scene, LoadSceneMode) => { cam.gameObject.SetActive(false); };
         SceneManager.sceneUnloaded += (Scene) => { cam.gameObject.SetActive(true); };
+
+        InitSceneSelectPanel();
     }
 
     private void Load(int index)
@@ -31,6 +40,7 @@ public class SampleSwitcher : MonoBehaviour
 
         infoText.text = CurrentInfo.Info;
         titleText.text = CurrentInfo.SceneTitle;
+        sceneSelect.gameObject.SetActive(false);
     }
 
     public void Next()
@@ -48,6 +58,37 @@ public class SampleSwitcher : MonoBehaviour
     public void SwitchShowInfo()
     {
         infoBoard.gameObject.SetActive(!infoBoard.gameObject.activeSelf);
+    }
+
+    public void SwitchSelectScene()
+    {
+        sceneSelect.SetActive(!sceneSelect.activeSelf);
+    }
+
+    private void InitSceneSelectPanel()
+    {
+        for (int i = 0; i < scenes.Length; ++i)
+        {
+            GameObject go = Instantiate(btnPrototype);
+            Button btn = go.GetComponent<Button>();
+            int index = i;
+            btn.onClick.AddListener(() => { OnSceneSelected(index); });
+            go.transform.SetParent(sceneSelectRoot);
+
+            Text text = go.GetComponentInChildren<Text>();
+            text.text = scenes[i].SceneTitle;
+        }
+
+        var btnRect = btnPrototype.GetComponent<RectTransform>();
+        var contentRect = sceneSelectRoot.GetComponent<RectTransform>();
+        var size = contentRect.sizeDelta;
+        size.y = (btnRect.sizeDelta.y + SceneListBtnGap) * scenes.Length;
+        contentRect.sizeDelta = size;
+    }
+
+    private void OnSceneSelected(int index)
+    {
+        Load(index);
     }
 
     private SceneInfo CurrentInfo { get => currentLoaded >= 0 ? scenes[currentLoaded] : null; }
