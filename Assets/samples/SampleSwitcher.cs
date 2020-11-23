@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SampleSwitcher : MonoBehaviour
 {
-    private const int SceneListBtnGap = 4;
+    private const int SceneListBtnGap = 5;
 
     [SerializeField] private Camera cam = null;
     [SerializeField] private SceneInfo[] scenes = null;
