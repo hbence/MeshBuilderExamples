@@ -14,7 +14,7 @@ public class NineScaleSample01 : MonoBehaviour
     [SerializeField] private NineScaleDrawer building = null;
     [SerializeField] private NineScaleDrawer platform = null;
 
-    [SerializeField] private UnityEngine.UI.Text switchBtnText;
+    [SerializeField] private UnityEngine.UI.Text switchBtnText = null;
 
     [SerializeField] private float yOffset = 0.6f;
 

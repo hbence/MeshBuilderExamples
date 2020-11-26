@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 048446701a639a449a21c1e56229ad83, type: 3}
+  m_Name: sample_editor_ground
+  m_EditorClassIdentifier: 
+  themeName: ground
+  type: 1
+  baseVariants:
+  - topConfig: 0
+    bottomConfig: 4
+    variants:
+    - {fileID: 2139863521196823269, guid: 416449e5eeec14357821621a4ba41472, type: 3}
+  - topConfig: 0
+    bottomConfig: 5
+    variants:
+    - {fileID: -7170175071739012120, guid: 416449e5eeec14357821621a4ba41472, type: 3}
+  - topConfig: 0
+    bottomConfig: 13
+    variants:
+    - {fileID: 5614672522073209409, guid: 416449e5eeec14357821621a4ba41472, type: 3}
+  - topConfig: 0
+    bottomConfig: 15
+    variants:
+    - {fileID: 6402103881930408379, guid: 416449e5eeec14357821621a4ba41472, type: 3}

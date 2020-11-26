@@ -39,6 +39,12 @@ EditorBuildSettings:
     path: Assets/samples/merge_mesh/01_merge/01_merge.unity
     guid: be91f9acf3c4e409ca3ddde383df87b2
   - enabled: 1
-    path: Assets/samples/nine_scale/01_nine_scale.unity
+    path: Assets/samples/nine_scale/01/01_nine_scale.unity
     guid: 6c4f06b468d0e435fa530f226a3a13c8
+  - enabled: 1
+    path: Assets/samples/nine_scale/02/02_nine_scale_mesh.unity
+    guid: 1d78999be4464430fac0ab747399fc14
+  - enabled: 1
+    path: Assets/samples/sample_editor/sample_editor.unity
+    guid: 58970a1272047481c9bfb8de3c6e9697
   m_configObjects: {}

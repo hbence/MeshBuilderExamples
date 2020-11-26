@@ -1,4 +1,5 @@
 *.blend1
+*.blend1.meta
 imgui.ini
 main-log.txt
 test.gid

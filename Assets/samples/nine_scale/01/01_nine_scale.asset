@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
+  m_Name: 01_nine_scale
+  m_EditorClassIdentifier: 
+  sceneIndex: 11
+  sceneTitle: Nine Scale Mesh Drawer
+  info: Two examples for Nine Scale Meshes. It's like a 3D version of sprite nine
+    scaling, reserving the corners, edges and stretching or repeating the middle.
+    The mesh pieces are drawn with RenderInfo. Instanced mode can be switched on altough
+    the difference is only visible in the editor Statistics window (if everything
+    goes well).

@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
-  m_Name: 01_nine_scale
+  m_Name: 02_nine_scale_mesh
   m_EditorClassIdentifier: 
-  sceneIndex: 11
-  sceneTitle: Nine Scale Mesh Drawer
-  info: Two examples for Nine Scale Meshes. It's like a 3D version of sprite nine
-    scaling, reserving the corners and edges and stretching the middle. It"s also
-    possible to set the middle to repeat. The mesh pieces are drawn with RenderInfos.
+  sceneIndex: 12
+  sceneTitle: Nine Scale Mesh Building
+  info: The data from the nine scaler is given to a mesh builder. It is drawn by a
+    simple MeshRenderer.
