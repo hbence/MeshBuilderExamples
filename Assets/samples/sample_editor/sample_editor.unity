@@ -1192,6 +1192,9 @@ MonoBehaviour:
   - name: Tree
     prototype: {fileID: 8234052195584477551, guid: 8ffcaa444fd9a4dbbb045ed69cb5120c,
       type: 3}
+  - name: Tree 02
+    prototype: {fileID: 8234052195584477551, guid: cf00e32b439d44999a25082d6c6b2882,
+      type: 3}
   cursor: {fileID: 165827436}
   itemButton: {fileID: 6645891579802535762, guid: c9245d04c21df4a65aa4dcc5697d71ab,
     type: 3}
@@ -1202,6 +1205,8 @@ MonoBehaviour:
   getMergedMesh: 0
   meshDataPath: 
   testMesh: {fileID: 0}
+  t: {fileID: 0}
+  testT: 0
 --- !u!1 &1355927069
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Unity.Mathematics;
+
 using MeshBuilder;
 
 public class SampleEditorControl : MonoBehaviour
@@ -55,11 +57,6 @@ public class SampleEditorControl : MonoBehaviour
     };
 
     private Item[] Objects;
-
-    public bool printMeshData = false;
-    public bool getMergedMesh = false;
-    public string meshDataPath;
-    public Mesh testMesh;
 
     public float CellSize => chunkInfo.CellSize.x;
     private Vector2 StartPos;
@@ -124,18 +121,6 @@ public class SampleEditorControl : MonoBehaviour
     void Update()
     {
         HandleMouse();
-
-        if (printMeshData)
-        {
-            printMeshData = false;
-            PrintMeshData(testMesh, meshDataPath);
-        }
-
-        if (getMergedMesh)
-        {
-            getMergedMesh = false;
-            testMesh = mergedObjects.GetMesh();
-        }
     }
 
     private float mouseDownTimer;
