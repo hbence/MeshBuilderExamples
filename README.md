@@ -1,7 +1,7 @@
 Mesh Builder Examples
 --------
 
-Example repository for [MeshBuilder](https://github.com/hbence/MeshBuilder/). 
+Example repository for [MeshBuilder](https://github.com/hbence/MeshBuilder/). The MeshBuilder submodule needs to be updated before opening the Unity project. It has the same requirements as MeshBuilder (Unity [2019.1.8f1 - 2020.1.17f], Burst [1.0.4 - 1.4.3], Mathematics [1.01 - 1.2.1], Collections [0.0.9 - 0.14.0-preview.16]).
 
 Scenes
 =========
