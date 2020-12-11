@@ -1,11 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using Unity.Mathematics;
 
 using MeshBuilder;
 
@@ -450,44 +447,6 @@ public class SampleEditorControl : MonoBehaviour
             merged = MeshCombinationUtils.CreateMergedMesh(gos, true);
             merged.transform.SetParent(parent);
         }
-        
-        /*
-        public void CreateMerged(List<PlacedObject> placed)
-        {
-            if (placed.Count <= 0)
-            {
-                return;
-            }
-
-            Mesh[] meshes = new Mesh[placed.Count];
-            Matrix4x4[] matrices = new Matrix4x4[meshes.Length];
-
-            for (int i = 0; i < meshes.Length; ++i)
-            {
-                MeshFilter filter = placed[i].GO.GetComponent<MeshFilter>();
-                meshes[i] = filter.sharedMesh;
-                matrices[i] = Matrix4x4.identity;
-            }
-
-            merged = new GameObject("merged");
-            merged.transform.SetParent(parent);
-
-            var renderer = merged.AddComponent<MeshRenderer>();
-            renderer.sharedMaterials = placed[0].GO.GetComponent<MeshRenderer>().sharedMaterials;
-            renderer.receiveShadows = true;
-            renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-
-            Mesh mesh = new Mesh();
-
-            var combinationBuilder = new MeshCombinationBuilder();
-            combinationBuilder.Init(meshes, matrices);
-            combinationBuilder.Start();
-            combinationBuilder.Complete(mesh);
-            combinationBuilder.Dispose();
-
-            var meshFilter = merged.AddComponent<MeshFilter>();
-            meshFilter.sharedMesh = mesh;
-        }*/
 
         public Mesh GetMesh()
         {
