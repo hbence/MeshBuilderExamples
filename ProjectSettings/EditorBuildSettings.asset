@@ -47,4 +47,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/samples/sample_editor/sample_editor.unity
     guid: 58970a1272047481c9bfb8de3c6e9697
+  - enabled: 1
+    path: Assets/samples/marching_squares/01/01_marching_squares.unity
+    guid: d39978b138304774ca0374d8cb46ad22
+  - enabled: 1
+    path: Assets/samples/marching_squares/02/02_marching_squares.unity
+    guid: d91c1774d85c80542943965811f2748a
   m_configObjects: {}

@@ -13,6 +13,7 @@ Library/
 ios_build/
 build_ios/
 Logs/
+*.htm
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
