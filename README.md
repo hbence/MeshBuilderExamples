@@ -84,4 +84,14 @@ Scenes
 
     A barebones editor using 2D Tile Meshers, Grid Meshers, a randomized Lattice Modifier for the tiles, MeshCombinationBuilder to merge the placed objects.
 
+14. **Marching Squares Test**
 
+    ![Marching Squares Test](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/14.jpg)
+
+    Some brushes moving around on a distance field, drawn by the MarchingSquaresMesher.
+
+15. **Marching Squares Drawing**
+
+    ![Marching Squares Drawing](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/15.jpg)
+
+    You can draw and erase with the mouse on the distance field. There are two MarchingSquaresMesher with different settings, one has a lower resolution distance field and tapered cell mesher.
