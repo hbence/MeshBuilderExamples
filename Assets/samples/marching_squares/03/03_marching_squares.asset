@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
+  m_Name: 03_marching_squares
+  m_EditorClassIdentifier: 
+  sceneIndex: 16
+  sceneTitle: Marching Squares Optimized
+  info: The Mode button switches between the triangulation modes. In optimized mode
+    the center cells are merged and drawn as a single rectangle covering multiple
+    cells.

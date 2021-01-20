@@ -11,10 +11,10 @@ public class MarchingSquareTest2 : MonoBehaviour
 
     [SerializeField] private Camera cam = null; 
 
-    [SerializeField] private MeshFilter meshFilter1;
-    [SerializeField] private float radius1;
-    [SerializeField] private MeshFilter meshFilter2;
-    [SerializeField] private float radius2;
+    [SerializeField] private MeshFilter meshFilter1 = null;
+    [SerializeField] private float radius1 = 0.5f;
+    [SerializeField] private MeshFilter meshFilter2 = null;
+    [SerializeField] private float radius2 = 0.35f;
 
     [SerializeField] private bool additive = true;
     [SerializeField] private UnityEngine.UI.Text buttonLabel = null;
