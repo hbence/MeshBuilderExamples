@@ -94,4 +94,16 @@ Scenes
 
     ![Marching Squares Drawing](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/15.jpg)
 
-    You can draw and erase with the mouse on the distance field. There are two MarchingSquaresMesher with different settings, one has a lower resolution distance field and tapered cell mesher.
+    You can draw and erase with the mouse on the distance field. There are two MarchingSquaresMeshers with different settings, one has a lower resolution distance field and a tapered cell mesher.
+
+16. **Marching Squares Optimized**
+
+    ![Marching Squares Optimized](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/16.jpg)
+
+    The Mode button switches between the triangulation modes. In optimized mode the center cells are merged and drawn as a single rectangle covering multiple cells.
+
+17. **Marching Squares with Height data**
+
+    ![Marching Squares with Height data](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/17.jpg)
+
+    The marching squares distance data also contains height data. Changeing the brush mode to Increase / Decrease Height, the height can be manipulated.
