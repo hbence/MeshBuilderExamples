@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using MeshBuilder;
 
@@ -30,8 +28,7 @@ public class MarchingSquareTest : MonoBehaviour
     void Start()
     {
         march = new MarchingSquaresMesher();
-        //march.Init(50, 50, CellSize, 0.2f);
-       march.InitForFullCellTapered(50, 50, CellSize, 0.2f, 0.4f);
+        march.InitForFullCellTapered(50, 50, CellSize, 0.2f, 0.4f);
 
         mesh = new Mesh();
         meshFilter.sharedMesh = mesh;

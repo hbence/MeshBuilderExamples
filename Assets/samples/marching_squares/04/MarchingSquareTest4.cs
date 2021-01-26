@@ -2,6 +2,8 @@
 
 using MeshBuilder;
 
+using Unity.Mathematics;
+
 public class MarchingSquareTest4 : MonoBehaviour
 {
     private const string AdditiveLabel = "Add";
@@ -58,6 +60,7 @@ public class MarchingSquareTest4 : MonoBehaviour
         meshFilter2.sharedMesh = mesh2;
 
         DrawAt(new Vector3(5, 0, 5));
+        //DrawAt(new Vector3(6, 0, 6));
 
         buttonLabel.text = ModeLabels[modeIndex];
         brushRoot.SetActive(false);
