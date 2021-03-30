@@ -4,7 +4,7 @@ using MeshBuilder;
 
 using Unity.Mathematics;
 
-public class MarchingSquareTest4 : MonoBehaviour
+public class MarchingSquareTest6 : MonoBehaviour
 {
     private const string AdditiveLabel = "Add";
     private const string SubtractiveLabel = "Subtract";
@@ -27,10 +27,11 @@ public class MarchingSquareTest4 : MonoBehaviour
 
     [SerializeField] private Camera cam = null; 
 
-    [SerializeField] private MarchingSquaresComponent march1 = null;
-    [SerializeField] private float radius1 = 0.5f;
-    [SerializeField] private MarchingSquaresComponent march2 = null;
-    [SerializeField] private float radius2 = 0.35f;
+    [SerializeField] private MarchingSquaresComponent marchSide = null;
+    [SerializeField] private MarchingSquaresComponent marchTop = null;
+    [SerializeField] private float radius = 0.5f;
+
+    private float CellSize => marchTop.CellSize;
 
     private int modeIndex = 0;
     private int brushIndex = 0;
@@ -40,18 +41,20 @@ public class MarchingSquareTest4 : MonoBehaviour
     [SerializeField] private GameObject brushRoot = null;
     [SerializeField] private UnityEngine.UI.Text shapeLabel = null;
 
-    private float CellSize1 => march1.CellSize;
-    private float CellSize2 => march2.CellSize;
-
-    private MarchingSquaresMesher.Data data1 => march1.Data;
-    private MarchingSquaresMesher.Data data2 => march2.Data;
+    private MarchingSquaresMesher.Data data;
 
     void Start()
     {
-        DrawAt(new Vector3(5, 0, 5));
+        data = new MarchingSquaresMesher.Data(50, 50);
+        data.InitHeights();
 
-        march1.Regenerate();
-        march2.Regenerate();
+        marchSide.InitWithData(data);
+        marchTop.InitWithData(data);
+        
+        DrawAt(new Vector3(5, 0, 5), data);
+
+        marchSide.Regenerate();
+        marchTop.Regenerate();
 
         buttonLabel.text = ModeLabels[modeIndex];
         brushRoot.SetActive(false);
@@ -62,42 +65,37 @@ public class MarchingSquareTest4 : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Vector3 pos = GetHitPosition(Input.mousePosition);
-            if (modeIndex == (int)Mode.Subtract)
-            {
-                EraseAt(pos);
-            }
-            else
-            {
-                DrawAt(pos);
-            }
+            DrawAt(pos, data);
 
-            march1.Regenerate();
-            march2.Regenerate();
+            marchSide.Regenerate();
+            marchTop.Regenerate();
         }
     }
 
-    private void DrawAt(Vector3 pos)
+    private void DrawAt(Vector3 pos, MarchingSquaresMesher.Data data)
     {
         switch ((Mode)modeIndex)
         {
+            case Mode.Subtract:
+                {
+                    data.RemoveCircle(pos.x, pos.z, radius, CellSize);
+                    break;
+                }
             case Mode.Add:
                 {
-                    data1.ApplyCircle(pos.x, pos.z, radius1, CellSize1);
-                    data1.RemoveBorder();
-
-                    data2.ApplyCircle(pos.x, pos.z, radius2, CellSize2);
-                    data2.RemoveBorder();
+                    data.ApplyCircle(pos.x, pos.z, radius, CellSize);
+                    data.RemoveBorder();
                     break;
                 }
             case Mode.IncreaseHeight:
                 {
                     if (brushIndex == 0)
                     {
-                        data2.ChangeHeightCircleFlat(pos.x, pos.z, radius2, HeightChangeValue, CellSize2, 0, maxHeight);
+                        data.ChangeHeightCircleFlat(pos.x, pos.z, radius, HeightChangeValue, CellSize, 0, maxHeight);
                     }
                     else
                     {
-                        data2.ChangeHeightCircleSmooth(pos.x, pos.z, radius2, HeightChangeValue, CellSize2, 0, maxHeight);
+                        data.ChangeHeightCircleSmooth(pos.x, pos.z, radius, HeightChangeValue, CellSize, 0, maxHeight);
                     }
                     break;
                 }
@@ -105,21 +103,15 @@ public class MarchingSquareTest4 : MonoBehaviour
                 {
                     if (brushIndex == 0)
                     {
-                        data2.ChangeHeightCircleFlat(pos.x, pos.z, radius2, -HeightChangeValue, CellSize2, 0, maxHeight);
+                        data.ChangeHeightCircleFlat(pos.x, pos.z, radius, -HeightChangeValue, CellSize, 0, maxHeight);
                     }
                     else
                     {
-                        data2.ChangeHeightCircleSmooth(pos.x, pos.z, radius2, -HeightChangeValue, CellSize2, 0, maxHeight);
+                        data.ChangeHeightCircleSmooth(pos.x, pos.z, radius, -HeightChangeValue, CellSize, 0, maxHeight);
                     }
                     break;
                 }
         }
-    }
-
-    private void EraseAt(Vector3 pos)
-    {
-        data1.RemoveCircle(pos.x, pos.z, radius2, CellSize1);
-        data2.RemoveCircle(pos.x, pos.z, radius1, CellSize2);
     }
 
     public void ChangeBrushMode()
@@ -148,5 +140,10 @@ public class MarchingSquareTest4 : MonoBehaviour
         float enter;
         plane.Raycast(ray, out enter);
         return ray.GetPoint(enter);
+    }
+
+    private void OnDestroy()
+    {
+        data?.Dispose();
     }
 }

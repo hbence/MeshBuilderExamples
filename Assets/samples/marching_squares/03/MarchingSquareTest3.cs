@@ -6,6 +6,7 @@ using System.IO;
 using System;
 
 using static MeshBuilder.MarchingSquaresMesher;
+using MesherType = MeshBuilder.MarchingSquaresComponent.InitializationInfo.Type;
 
 public class MarchingSquareTest3 : MonoBehaviour
 {
@@ -18,13 +19,14 @@ public class MarchingSquareTest3 : MonoBehaviour
 
     private string[] ModeButtonLabels = { SimpleLabel, OptimizedGreedyLabel, OptimizedLargestLabel };
 
-    private const float CellSize = 0.2f;
-
     [SerializeField] private Camera cam = null; 
 
     [Header("brush")]
-    [SerializeField] private MeshFilter meshFilter = null;
+    [SerializeField] private MarchingSquaresComponent march = null;
     [SerializeField] private float radius = 0.5f;
+
+    private float CellSize => march.CellSize;
+
 
     [Header("ui")]
     private bool additive = true;
@@ -39,21 +41,17 @@ public class MarchingSquareTest3 : MonoBehaviour
     [SerializeField] private bool save = false;
     [SerializeField] private bool load = false;
 
-    private DistanceData data;
-
-    private MarchingSquaresMesher march;
-    private Mesh mesh;
+    private Data data => march.Data;
+    private DistanceData dataHandler;
 
     void Start()
     {
-        march = new MarchingSquaresMesher();
-
         InitMesher();
-        
-        mesh = new Mesh();
-        meshFilter.sharedMesh = mesh;
 
         Load();
+
+        march.OnMeshChanged += UpdateMeshInfo;
+        march.Regenerate();
 
         brushButtonLabel.text = additive ? AdditiveLabel : SubtractiveLabel;
         modeButtonLabel.text = ModeButtonLabels[meshModeOptimized];
@@ -63,10 +61,11 @@ public class MarchingSquareTest3 : MonoBehaviour
     {
         switch (meshModeOptimized)
         {
-            case 0: march.Init(50, 50, CellSize, 0.1f); break;
-            case 1: march.InitForOptimized(50, 50, CellSize, 0.1f, 1, OptimizationMode.GreedyRect); break;
-            case 2: march.InitForOptimized(50, 50, CellSize, 0.1f, 1, OptimizationMode.NextLargestRect); break;
+            case 0: march.InitInfo.type = MesherType.TopOnly; break;
+            case 1: march.InitInfo.type = MesherType.TopOptimizedGreedy; break;
+            case 2: march.InitInfo.type = MesherType.TopOptimizedLargestRect; break;
         }
+        march.Init();
     }
 
     void Update()
@@ -82,6 +81,8 @@ public class MarchingSquareTest3 : MonoBehaviour
             {
                 EraseAt(pos);
             }
+
+            march.Regenerate();
         }
 
         if (save)
@@ -98,16 +99,12 @@ public class MarchingSquareTest3 : MonoBehaviour
 
     private void DrawAt(Vector3 pos)
     {
-        march.DistanceData.ApplyCircle(pos.x, pos.z, radius, CellSize);
-        march.DistanceData.RemoveBorder();
-        march.Start();
+        data.ApplyCircle(pos.x, pos.z, radius, CellSize);
     }
 
     private void EraseAt(Vector3 pos)
     {
-        march.DistanceData.RemoveCircle(pos.x, pos.z, radius, CellSize);
-        march.DistanceData.RemoveBorder();
-        march.Start();
+        data.RemoveCircle(pos.x, pos.z, radius, CellSize);
     }
 
     public void ChangeBrushMode()
@@ -121,74 +118,59 @@ public class MarchingSquareTest3 : MonoBehaviour
         meshModeOptimized = (meshModeOptimized + 1) % ModeButtonLabels.Length;
         modeButtonLabel.text = ModeButtonLabels[meshModeOptimized];
 
-        data.FromData(march.DistanceData);
+        dataHandler.FromData(data);
         InitMesher();
-        data.ToData(march.DistanceData);
-        march.Start();
+        dataHandler.ToData(data);
+        march.Regenerate();
     }
 
     public void Clear()
     {
-        march.DistanceData.Clear();
-        march.Start();
+        data.Clear();
+        march.Regenerate();
     }
 
     private void Save()
     {
-        data.FromData(march.DistanceData);
-        DistanceData.WriteToFile(levelPath, data);
+        dataHandler.FromData(data);
+        DistanceData.WriteToFile(levelPath, dataHandler);
     }
 
     private void Load()
     {
-        data = DistanceData.ReadFromFile(levelPath);
-        if (data == null)
+        dataHandler = DistanceData.ReadFromFile(levelPath);
+        if (dataHandler == null)
         {
-            data = new DistanceData();
+            dataHandler = new DistanceData();
         }
         else
         {
-            data.ToData(march.DistanceData);
-            march.Start();
+            dataHandler.ToData(data);
         }
     }
 
-    private void LateUpdate()
-    {
-        if (march.IsGenerating)
-        {
-            march.Complete(mesh);
-            UpdateMeshInfo();
-        }
-    }
-
-    private void UpdateMeshInfo()
+    private void UpdateMeshInfo(Mesh mesh)
     {
         meshInfoLabel.text = $"mesh | vertex:{mesh.vertexCount} tri:{mesh.triangles.Length / 3}";
     }
 
     private Vector3 GetHitPosition(Vector3 pos)
     {
-        Plane plane = new Plane(Vector3.up, 0);
+        Plane plane = new Plane(Vector3.up, march.transform.position.y);
         var ray = cam.ScreenPointToRay(pos);
         float enter;
         plane.Raycast(ray, out enter);
         return ray.GetPoint(enter);
     }
 
-    private void OnDestroy()
-    {
-        march?.Dispose();
-    }
-
-    [System.Serializable]
+    [Serializable]
     private class DistanceData
     {
         public int colNum;
         public int rowNum;
         public float[] distances;
 
-        public void FromData(MarchingSquaresMesher.Data data)
+        public void FromData(Data data)
         {
             colNum = data.ColNum;
             rowNum = data.RowNum;
@@ -196,7 +178,7 @@ public class MarchingSquareTest3 : MonoBehaviour
             NativeArray<float>.Copy(data.RawData, distances);
         }
 
-        public void ToData(MarchingSquaresMesher.Data data)
+        public void ToData(Data data)
         {
             if (distances != null && distances.Length == data.RawData.Length)
             {

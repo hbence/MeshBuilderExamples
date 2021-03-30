@@ -7,36 +7,27 @@ public class MarchingSquareTest2 : MonoBehaviour
     private string AdditiveLabel = "Additive";
     private string SubtractiveLabel = "Subtractive";
 
-    private const float CellSize = 0.2f;
-
     [SerializeField] private Camera cam = null; 
 
-    [SerializeField] private MeshFilter meshFilter1 = null;
+    [SerializeField] private MarchingSquaresComponent march1 = null;
     [SerializeField] private float radius1 = 0.5f;
-    [SerializeField] private MeshFilter meshFilter2 = null;
+    [SerializeField] private MarchingSquaresComponent march2 = null;
     [SerializeField] private float radius2 = 0.35f;
 
     [SerializeField] private bool additive = true;
     [SerializeField] private UnityEngine.UI.Text buttonLabel = null;
 
-    private MarchingSquaresMesher march1;
-    private MarchingSquaresMesher march2;
-    private Mesh mesh1;
-    private Mesh mesh2;
+    private float cellSize1 => march1.CellSize;
+    private float cellSize2 => march2.CellSize;
 
+    private MarchingSquaresMesher.Data data1 => march1.Data;
+    private MarchingSquaresMesher.Data data2 => march2.Data;
+    
     void Start()
     {
-        march1 = new MarchingSquaresMesher();
-        march1.InitForFullCellTapered(25, 25, CellSize*2, 0.2f, 0.5f);
-        mesh1 = new Mesh();
-        meshFilter1.sharedMesh = mesh1;
-
-        march2 = new MarchingSquaresMesher();
-        march2.InitForFullCell(50, 50, CellSize, 0.3f);
-        mesh2 = new Mesh();
-        meshFilter2.sharedMesh = mesh2;
-
         DrawAt(new Vector3(5, 0, 5));
+        march1.Regenerate();
+        march2.Regenerate();
 
         buttonLabel.text = additive ? AdditiveLabel : SubtractiveLabel;
     }
@@ -54,47 +45,30 @@ public class MarchingSquareTest2 : MonoBehaviour
             {
                 EraseAt(pos);
             }
+
+            march1.Regenerate();
+            march2.Regenerate();
         }
     }
 
     private void DrawAt(Vector3 pos)
     {
-        march1.DistanceData.ApplyCircle(pos.x, pos.z, radius1, CellSize * 2);
-        march1.DistanceData.RemoveBorder();
-        march1.Start();
-
-        march2.DistanceData.ApplyCircle(pos.x, pos.z, radius2, CellSize);
-        march2.DistanceData.RemoveBorder();
-        march2.Start();
+        data1.ApplyCircle(pos.x, pos.z, radius1, cellSize1);
+        data1.RemoveBorder();
+        data2.ApplyCircle(pos.x, pos.z, radius2, cellSize2);
+        data2.RemoveBorder();
     }
 
     private void EraseAt(Vector3 pos)
     {
-        march1.DistanceData.RemoveCircle(pos.x, pos.z, radius2, CellSize * 2);
-        march1.DistanceData.RemoveBorder();
-        march1.Start();
-
-        march2.DistanceData.RemoveCircle(pos.x, pos.z, radius1, CellSize);
-        march2.DistanceData.RemoveBorder();
-        march2.Start();
+        data1.RemoveCircle(pos.x, pos.z, radius2, cellSize1);
+        data2.RemoveCircle(pos.x, pos.z, radius1, cellSize2);
     }
 
     public void ChangeBrushMode()
     {
         additive = !additive;
         buttonLabel.text = additive ? AdditiveLabel : SubtractiveLabel;
-    }
-
-    private void LateUpdate()
-    {
-        if (march1.IsGenerating)
-        {
-            march1.Complete(mesh1);
-        }
-        if (march2.IsGenerating)
-        {
-            march2.Complete(mesh2);
-        }
     }
 
     private Vector3 GetHitPosition(Vector3 pos)
@@ -104,11 +78,5 @@ public class MarchingSquareTest2 : MonoBehaviour
         float enter;
         plane.Raycast(ray, out enter);
         return ray.GetPoint(enter);
-    }
-
-    private void OnDestroy()
-    {
-        march1?.Dispose();
-        march2?.Dispose();
     }
 }

@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
-  m_Name: 01_marching
+  m_Name: 06_marching_info
   m_EditorClassIdentifier: 
-  sceneIndex: 14
-  sceneTitle: Marching  Squares Test
-  info: Some brushes moving around on a distance field, drawn by the MarchingSquaresMesher.
-    The mesher type can be changed.
+  sceneIndex: 19
+  sceneTitle: Marching Squares Segmented Mesher
+  info: Showing off the segmented side mesher to generate more elaborate meshes.

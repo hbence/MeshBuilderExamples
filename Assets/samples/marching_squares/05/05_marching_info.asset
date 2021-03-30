@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
-  m_Name: 01_marching
+  m_Name: 05_marching_info
   m_EditorClassIdentifier: 
-  sceneIndex: 14
-  sceneTitle: Marching  Squares Test
-  info: Some brushes moving around on a distance field, drawn by the MarchingSquaresMesher.
-    The mesher type can be changed.
+  sceneIndex: 18
+  sceneTitle: Marching Squares Culling
+  info: Separate meshers can be used  as chunks and turned on/off as needed. Culling
+    data can be set to skip areas in the mesh generation. (For example to avoid overdraw
+    and wasted work if parts of the mesh are always covered.)

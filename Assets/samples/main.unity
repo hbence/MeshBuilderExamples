@@ -2062,6 +2062,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62f91013d4fcdf54b8c7941aa4026b77, type: 2}
   - {fileID: 11400000, guid: ca7e6b26951c633438e071022b3f585f, type: 2}
   - {fileID: 11400000, guid: daee3bde1c9bbe3409250c2838396bcf, type: 2}
+  - {fileID: 11400000, guid: a6a8bf398e052a84ba895054cdd90247, type: 2}
+  - {fileID: 11400000, guid: 08ddc31559dacd94f9a8c44e87b948d5, type: 2}
   infoText: {fileID: 1919911900}
   titleText: {fileID: 287903261}
   infoBoard: {fileID: 1108133938}

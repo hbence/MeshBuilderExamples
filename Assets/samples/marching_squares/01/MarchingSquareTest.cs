@@ -2,10 +2,10 @@
 
 using MeshBuilder;
 
+using MesherType = MeshBuilder.MarchingSquaresComponent.InitializationInfo.Type;
+
 public class MarchingSquareTest : MonoBehaviour
 {
-    private const float CellSize = 0.2f;
-
     [System.Serializable]
     private class BrushInfo
     {
@@ -20,51 +20,63 @@ public class MarchingSquareTest : MonoBehaviour
     [SerializeField] private float areaWidth = 10f;
     [SerializeField] private float areaHeight = 10f;
     [SerializeField] private float border = 0.2f;
+    [SerializeField] private UnityEngine.UI.Text btnLabel = null;
 
-    [SerializeField] private MeshFilter meshFilter;
-    private MarchingSquaresMesher march;
-    private Mesh mesh;
+    [SerializeField] private MarchingSquaresComponent marchingSquares = null;
+
+    private MarchingSquaresMesher.Data Data => marchingSquares.Data;
+    private float CellSize => marchingSquares.CellSize;
 
     void Start()
     {
-        march = new MarchingSquaresMesher();
-        march.InitForFullCellTapered(50, 50, CellSize, 0.2f, 0.4f);
+        //marchingSquares.Mesher.InitForFullCellTapered(data, CellSize, 0.2f, 0.4f);
+        //marchingSquares.Mesher.InitForFullCell(data, CellSize, 0.2f, false);
+        //marchingSquares.Mesher.InitForFullCellSimpleMesh(data, CellSize, 0.2f);
+        //marchingSquares.Mesher.InitForTest(data, CellSize, 0.2f, 1);
+        //marchingSquares.Mesher.Init(data, CellSize);
+        //marchingSquares.Mesher.InitForOptimized(data, CellSize, 0.5f, 1, MarchingSquaresMesher.OptimizationMode.NextLargestRect);
 
-        mesh = new Mesh();
-        meshFilter.sharedMesh = mesh;
+        UpdateButtonLabel();
+    }
+
+    public void SwitchMesherType()
+    {
+        int count = System.Enum.GetNames(typeof(MesherType)).Length;
+        int type = ((int)marchingSquares.InitInfo.type + 1) % count;
+        marchingSquares.InitInfo.type = (MesherType) type;
+        marchingSquares.Init();
+
+        UpdateButtonLabel();
+    }
+
+    private void UpdateButtonLabel()
+    {
+        btnLabel.text = marchingSquares.InitInfo.type.ToString();
     }
 
     void Update()
     {
-        march.DistanceData.Clear();
+        Data.Clear();
         foreach(var brush in brushes)
         {
             MoveBrush(brush);
-            ApplyCircle(brush);
+            ApplyBrush(brush);
         }
-        march.DistanceData.RemoveBorder();
-        march.Start();
+        Data.RemoveBorder();
+        marchingSquares.Regenerate();
     }
 
-    private void LateUpdate()
-    {
-        if (march.IsGenerating)
-        {
-            march.Complete(mesh);
-        }
-    }
-
-    private void ApplyCircle(BrushInfo brush)
+    private void ApplyBrush(BrushInfo brush)
     {
         Vector3 p = brush.transform.position;
         float rad = brush.transform.localScale.x * 0.5f;
         if (brush.circle)
         {
-            march.DistanceData.ApplyCircle(p.x, p.z, rad, CellSize);
+            Data.ApplyCircle(p.x, p.z, rad, CellSize);
         }
         else
         {
-            march.DistanceData.ApplyRectangle(p.x, p.z, rad, rad, CellSize);
+            Data.ApplyRectangle(p.x, p.z, rad, rad, CellSize);
         }
     }
 
@@ -94,25 +106,20 @@ public class MarchingSquareTest : MonoBehaviour
     {
         if (showValues)
         {
-            if (march != null && march.DistanceData != null)
+            if (Data != null)
             {
                 Vector3 origin = transform.position;
-                for (int y = 0; y < march.DistanceData.RowNum; ++y)
+                for (int y = 0; y < Data.RowNum; ++y)
                 {
-                    for (int x = 0; x < march.DistanceData.ColNum; ++x)
+                    for (int x = 0; x < Data.ColNum; ++x)
                     {
-                        float dist = march.DistanceData.DistanceAt(x, y);
+                        float dist = Data.DistanceAt(x, y);
                         Vector3 offset = new Vector3(x * CellSize, 0.3f, y * CellSize);
                         DrawString(dist.ToString("0.0"), origin + offset, 0, 0);
                     }
                 }
             }
         }
-    }
-
-    private void OnDestroy()
-    {
-        march?.Dispose();
     }
 
     static public void DrawString(string text, Vector3 worldPos, float oX = 0, float oY = 0, Color? colour = null)
