@@ -107,3 +107,15 @@ Scenes
     ![Marching Squares with Height data](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/17.jpg)
 
     The marching squares distance data also contains height data. Changeing the brush mode to Increase / Decrease Height, the height can be manipulated.
+
+18. **Marching Squares Culling**
+
+    ![Marching Squares with Height data](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/18.jpg)
+
+    Separate meshers can be used  as chunks and turned on/off as needed. Culling data can be set to skip areas in the mesh generation. (For example to avoid overdraw and wasted work if parts of the mesh are always covered.)
+
+19. **Marching Squares Segmented Mesher**
+
+    ![Marching Squares with Height data](https://github.com/hbence/MeshBuilderExamples/blob/readme/img/19.jpg)
+
+    Showing off the segmented side mesher to generate more elaborate meshes.
