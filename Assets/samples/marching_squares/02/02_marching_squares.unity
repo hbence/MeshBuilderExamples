@@ -337,14 +337,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 331428736}
-  initializeInAwake: 1
+  initializationPolicy: 0
   initialization:
-    dataManagement: 0
-    dataCreationInfo:
-      colNum: 50
-      rowNum: 50
-      hasHeightData: 0
-      hasCullingData: 0
     type: 9
     cellSize: 0.2
     height: 0.3
@@ -352,6 +346,12 @@ MonoBehaviour:
     taperedTopOffset: 0
     taperedBottomOffset: 0.5
     segmentedOffsets: []
+  dataCreationPolicy: 0
+  dataCreationInfo:
+    colNum: 50
+    rowNum: 50
+    hasHeightData: 0
+    hasCullingData: 0
 --- !u!1 &348994517
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,14 +754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 931612670}
-  initializeInAwake: 1
+  initializationPolicy: 0
   initialization:
-    dataManagement: 0
-    dataCreationInfo:
-      colNum: 25
-      rowNum: 25
-      hasHeightData: 0
-      hasCullingData: 0
     type: 7
     cellSize: 0.4
     height: 0.2
@@ -769,6 +763,12 @@ MonoBehaviour:
     taperedTopOffset: 0
     taperedBottomOffset: 0.3
     segmentedOffsets: []
+  dataCreationPolicy: 0
+  dataCreationInfo:
+    colNum: 25
+    rowNum: 25
+    hasHeightData: 0
+    hasCullingData: 0
 --- !u!20 &1474751963 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8955720460853293982, guid: 0b887daac2b10f1409bfe5f26c952406,

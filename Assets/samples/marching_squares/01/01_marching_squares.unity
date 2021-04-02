@@ -360,19 +360,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 106619129}
-  initializeInAwake: 1
+  initializationPolicy: 1
   initialization:
-    dataManagement: 0
-    dataCreationInfo:
-      colNum: 50
-      rowNum: 50
-      hasHeightData: 0
-      hasCullingData: 0
     type: 7
     cellSize: 0.2
     height: 0.5
     lerpToExactEdge: 1
-    taperedtopOffset: 0
+    taperedTopOffset: 0
     taperedBottomOffset: 0.3
     segmentedOffsets:
     - hz: 0
@@ -383,6 +377,12 @@ MonoBehaviour:
       vc: -0.5
     - hz: 0.5
       vc: -0.75
+  dataCreationPolicy: 0
+  dataCreationInfo:
+    colNum: 50
+    rowNum: 50
+    hasHeightData: 0
+    hasCullingData: 0
 --- !u!1 &191218622
 GameObject:
   m_ObjectHideFlags: 0

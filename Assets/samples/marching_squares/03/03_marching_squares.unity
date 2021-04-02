@@ -233,13 +233,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1474751963}
   march: {fileID: 931612673}
-  radius: 0.5
+  radius: 1
   brushButtonLabel: {fileID: 2133903513}
   modeButtonLabel: {fileID: 238673076}
   meshInfoLabel: {fileID: 1640082823}
   levelPath: ms03_dist_data.bin
   save: 0
   load: 0
+  showVerticesGizmo: 0
 --- !u!4 &106619127
 Transform:
   m_ObjectHideFlags: 0
@@ -803,14 +804,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 931612670}
-  initializeInAwake: 1
+  initializationPolicy: 0
   initialization:
-    dataManagement: 0
-    dataCreationInfo:
-      colNum: 50
-      rowNum: 50
-      hasHeightData: 0
-      hasCullingData: 0
     type: 0
     cellSize: 0.2
     height: 0.1
@@ -818,6 +813,12 @@ MonoBehaviour:
     taperedTopOffset: 0
     taperedBottomOffset: 0.5
     segmentedOffsets: []
+  dataCreationPolicy: 0
+  dataCreationInfo:
+    colNum: 50
+    rowNum: 50
+    hasHeightData: 0
+    hasCullingData: 0
 --- !u!1 &1306483745
 GameObject:
   m_ObjectHideFlags: 0

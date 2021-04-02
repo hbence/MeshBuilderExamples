@@ -76,22 +76,6 @@ public class MarchingSquareTest5 : MonoBehaviour
             data[i] = meshers[i].Data;
         }
 
-        /*
-        for (int i = 0; i < meshFilters.Length; ++i)
-        {
-            meshers[i] = new MarchingSquaresMesher();
-            meshers[i].InitForFullCellTapered(ColNum, RowNum, CellSize, 0.2f, 0.5f);
-            //meshers[i].InitForFullCell(ColNum, RowNum, CellSize, 0.2f);
-            //meshers[i].InitForOptimized(41, 41, CellSize, 0.2f, 0.5f);
-            meshers[i].DistanceData.InitHeights();
-            meshers[i].DistanceData.InitCullingData(defCulling);
-
-            meshFilters[i].sharedMesh = new Mesh();
-
-            UpdateCullingData(i, cullingBox);
-        }
-        */
-
         float rad = brushRadius;
         brushRadius = 5;
         DrawAt(new Vector3(10, 0, 10));

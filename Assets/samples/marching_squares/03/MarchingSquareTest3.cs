@@ -41,6 +41,9 @@ public class MarchingSquareTest3 : MonoBehaviour
     [SerializeField] private bool save = false;
     [SerializeField] private bool load = false;
 
+    [Header("debug")]
+    public bool showVerticesGizmo = false;
+
     private Data data => march.Data;
     private DistanceData dataHandler;
 
@@ -148,6 +151,20 @@ public class MarchingSquareTest3 : MonoBehaviour
             dataHandler.ToData(data);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        if (showVerticesGizmo && march.Mesh)
+        {
+            Gizmos.color = Color.red;
+            var vertices = march.Mesh.vertices;
+            foreach (var p in vertices)
+            {
+                Gizmos.DrawSphere(p, 0.05f);
+            }
+        }
+    }
+
 
     private void UpdateMeshInfo(Mesh mesh)
     {
