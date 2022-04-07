@@ -6,7 +6,7 @@ using System.IO;
 using System;
 
 using static MeshBuilder.MarchingSquaresMesher;
-using MesherType = MeshBuilder.MarchingSquaresComponent.InitializationInfo.Type;
+using Data = MeshBuilder.MarchingSquaresMesherData;
 
 public class MarchingSquareTest3 : MonoBehaviour
 {
@@ -19,14 +19,15 @@ public class MarchingSquareTest3 : MonoBehaviour
 
     private string[] ModeButtonLabels = { SimpleLabel, OptimizedGreedyLabel, OptimizedLargestLabel };
 
-    [SerializeField] private Camera cam = null; 
+    [SerializeField] private Camera cam = null;
+
+    [SerializeField] private MarchingSquaresComponent.InitializationInfo[] infos = null;
 
     [Header("brush")]
     [SerializeField] private MarchingSquaresComponent march = null;
     [SerializeField] private float radius = 0.5f;
 
     private float CellSize => march.CellSize;
-
 
     [Header("ui")]
     private bool additive = true;
@@ -62,13 +63,8 @@ public class MarchingSquareTest3 : MonoBehaviour
 
     private void InitMesher()
     {
-        switch (meshModeOptimized)
-        {
-            case 0: march.InitInfo.type = MesherType.TopOnly; break;
-            case 1: march.InitInfo.type = MesherType.TopOptimizedGreedy; break;
-            case 2: march.InitInfo.type = MesherType.TopOptimizedLargestRect; break;
-        }
-        march.Init();
+        var info = infos[meshModeOptimized];
+        march.Init(info);
     }
 
     void Update()

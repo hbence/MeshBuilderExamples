@@ -274,6 +274,168 @@ MonoBehaviour:
   areaHeight: 10
   border: 0.2
   btnLabel: {fileID: 1879484781}
+  initInfos:
+  - name: Flat Top
+    info:
+      cellSize: 0.2
+      generateUVs: 1
+      generateNormals: 1
+      submeshes:
+      - meshers:
+        - type: 0
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0
+          bottomHeightScale: 0
+          bottomScaledOffset: 0
+          segments: []
+  - name: Full Cell
+    info:
+      cellSize: 0.2
+      generateUVs: 1
+      generateNormals: 1
+      submeshes:
+      - meshers:
+        - type: 5
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.5
+          bottomHeightScale: 0
+          bottomScaledOffset: 0
+          segments: []
+  - name: Multi
+    info:
+      cellSize: 0.2
+      generateUVs: 1
+      generateNormals: 1
+      submeshes:
+      - meshers:
+        - type: 0
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.5
+          bottomHeightScale: 0
+          bottomScaledOffset: 0
+          segments: []
+        - type: 3
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: -0.3
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.3
+          bottomHeightScale: 0
+          bottomScaledOffset: 0.2
+          segments: []
+  - name: Extra
+    info:
+      cellSize: 0.2
+      generateUVs: 1
+      generateNormals: 1
+      submeshes:
+      - meshers:
+        - type: 0
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.5
+          bottomHeightScale: 0
+          bottomScaledOffset: 0
+          segments: []
+        - type: 4
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.3
+          bottomHeightScale: 0
+          bottomScaledOffset: 0.2
+          segments:
+          - SideHzOffset: 0
+            SideVcOffset: 0
+            HeightScale: 0
+          - SideHzOffset: 0.15
+            SideVcOffset: -0.2
+            HeightScale: 0
+          - SideHzOffset: 0.2
+            SideVcOffset: -0.3
+            HeightScale: 0
+        - type: 4
+          lerpToExactEdge: 1
+          useCullingData: 0
+          useHeightData: 0
+          offsetY: 0
+          heightScale: 0
+          uScale: 1
+          vScale: 1
+          normalizeUV: 1
+          isFlipped: 0
+          scaledOffset: 0
+          optimizationMode: 0
+          sideHeight: 0.3
+          bottomHeightScale: 0
+          bottomScaledOffset: 0.2
+          segments:
+          - SideHzOffset: -0.2
+            SideVcOffset: 0
+            HeightScale: 0
+          - SideHzOffset: -0.15
+            SideVcOffset: 0.05
+            HeightScale: 0
+          - SideHzOffset: -0.08
+            SideVcOffset: 0.1
+            HeightScale: 0
+          - SideHzOffset: 0
+            SideVcOffset: 0
+            HeightScale: 0
   marchingSquares: {fileID: 106619130}
 --- !u!4 &106619127
 Transform:
@@ -360,29 +522,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 106619129}
-  initializationPolicy: 1
+  initializationPolicy: 2
   initialization:
-    type: 7
     cellSize: 0.2
-    height: 0.5
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.3
-    segmentedOffsets:
-    - hz: 0
-      vc: 0
-    - hz: 0.3
-      vc: -0.2
-    - hz: 0.45
-      vc: -0.5
-    - hz: 0.5
-      vc: -0.75
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 50
     rowNum: 50
     hasHeightData: 0
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!1 &191218622
 GameObject:
   m_ObjectHideFlags: 0

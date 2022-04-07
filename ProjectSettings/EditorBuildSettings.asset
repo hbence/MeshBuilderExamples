@@ -65,4 +65,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/samples/marching_squares/06/06_marching_squares.unity
     guid: e691c5f5ebf16f74681151078c8d3b7c
+  - enabled: 1
+    path: Assets/samples/marching_squares/07/07_marching_squares.unity
+    guid: c8891b9e143c38142a07bb9fd972ae28
   m_configObjects: {}

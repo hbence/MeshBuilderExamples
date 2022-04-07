@@ -16,4 +16,4 @@ MonoBehaviour:
   sceneTitle: Marching Squares Optimized
   info: The Mode button switches between the triangulation modes. In optimized mode
     the center cells are merged and drawn as a single rectangle covering multiple
-    cells.
+    cells. (Check the Wireframe mode in the Scene view.)

@@ -575,8 +575,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 331428738}
-  - component: {fileID: 331428737}
   - component: {fileID: 331428739}
+  - component: {fileID: 331428737}
   - component: {fileID: 331428736}
   m_Layer: 0
   m_Name: layer_02
@@ -613,6 +613,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b6e02ddf42035ff4bbdacc7323cadce1, type: 2}
+  - {fileID: 2100000, guid: 04fe9561880a84940956ab28696c3eff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -662,20 +663,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 331428736}
   initializationPolicy: 0
+  GenerateOnInit: 0
   initialization:
-    type: 6
     cellSize: 0.2
-    height: 0.3
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.5
-    segmentedOffsets: []
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 1
+        offsetY: 0
+        heightScale: 1
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
+    - meshers:
+      - type: 4
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 1
+        offsetY: 0
+        heightScale: 1
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments:
+        - SideHzOffset: 0
+          SideVcOffset: 0
+          HeightScale: 1
+        - SideHzOffset: 0.2
+          SideVcOffset: -0.3
+          HeightScale: 0.5
+        - SideHzOffset: 0.35
+          SideVcOffset: -0.5
+          HeightScale: 0
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 50
     rowNum: 50
     hasHeightData: 1
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!1 &348994517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,20 +1285,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 931612670}
   initializationPolicy: 0
+  GenerateOnInit: 0
   initialization:
-    type: 7
     cellSize: 0.4
-    height: 0.2
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.5
-    segmentedOffsets: []
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
+      - type: 3
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: -0.5
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0.5
+        bottomHeightScale: 0
+        bottomScaledOffset: 0.5
+        segments: []
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 25
     rowNum: 25
     hasHeightData: 0
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!1 &1156851933
 GameObject:
   m_ObjectHideFlags: 0

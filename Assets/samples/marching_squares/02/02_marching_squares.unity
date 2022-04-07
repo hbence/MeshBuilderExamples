@@ -289,6 +289,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1ee313d3956535d4db6766400026d265, type: 2}
+  - {fileID: 2100000, guid: 04fe9561880a84940956ab28696c3eff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -338,20 +339,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 331428736}
   initializationPolicy: 0
+  GenerateOnInit: 0
   initialization:
-    type: 9
     cellSize: 0.2
-    height: 0.3
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.5
-    segmentedOffsets: []
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
+    - meshers:
+      - type: 3
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: -0.5
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0.5
+        bottomHeightScale: 0
+        bottomScaledOffset: 0.3
+        segments: []
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 50
     rowNum: 50
     hasHeightData: 0
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!1 &348994517
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,20 +790,74 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 931612670}
   initializationPolicy: 0
+  GenerateOnInit: 0
   initialization:
-    type: 7
     cellSize: 0.4
-    height: 0.2
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.3
-    segmentedOffsets: []
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 0
+        vScale: 0
+        normalizeUV: 0
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments:
+        - SideHzOffset: -0.3
+          SideVcOffset: 0
+          HeightScale: 0
+        - SideHzOffset: 0
+          SideVcOffset: -0.1
+          HeightScale: 0
+        - SideHzOffset: 0.5
+          SideVcOffset: -0.3
+          HeightScale: 0
+        - SideHzOffset: 0.75
+          SideVcOffset: -0.5
+          HeightScale: 0
+      - type: 4
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 0
+        vScale: 0
+        normalizeUV: 0
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments:
+        - SideHzOffset: 0
+          SideVcOffset: 0
+          HeightScale: 0
+        - SideHzOffset: 0.25
+          SideVcOffset: -0.1
+          HeightScale: 0
+        - SideHzOffset: 0.5
+          SideVcOffset: -0.3
+          HeightScale: 0
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 25
     rowNum: 25
     hasHeightData: 0
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!20 &1474751963 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8955720460853293982, guid: 0b887daac2b10f1409bfe5f26c952406,

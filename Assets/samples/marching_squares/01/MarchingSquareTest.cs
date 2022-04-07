@@ -2,7 +2,7 @@
 
 using MeshBuilder;
 
-using MesherType = MeshBuilder.MarchingSquaresComponent.InitializationInfo.Type;
+using Data = MeshBuilder.MarchingSquaresMesherData;
 
 public class MarchingSquareTest : MonoBehaviour
 {
@@ -15,6 +15,13 @@ public class MarchingSquareTest : MonoBehaviour
         public float speedY;
     }
 
+    [System.Serializable]
+    private class InitInfo
+    {
+        public string name;
+        public MarchingSquaresComponent.InitializationInfo info;
+    }
+
     [SerializeField] private bool showValues = false;
     [SerializeField] private BrushInfo[] brushes = null;
     [SerializeField] private float areaWidth = 10f;
@@ -22,48 +29,44 @@ public class MarchingSquareTest : MonoBehaviour
     [SerializeField] private float border = 0.2f;
     [SerializeField] private UnityEngine.UI.Text btnLabel = null;
 
+    [SerializeField] private InitInfo[] initInfos = null;
     [SerializeField] private MarchingSquaresComponent marchingSquares = null;
 
-    private MarchingSquaresMesher.Data Data => marchingSquares.Data;
+    private int currentInfoIndex = 0;
+
+    private Data Data => marchingSquares.Data;
     private float CellSize => marchingSquares.CellSize;
 
     void Start()
     {
-        //marchingSquares.Mesher.InitForFullCellTapered(data, CellSize, 0.2f, 0.4f);
-        //marchingSquares.Mesher.InitForFullCell(data, CellSize, 0.2f, false);
-        //marchingSquares.Mesher.InitForFullCellSimpleMesh(data, CellSize, 0.2f);
-        //marchingSquares.Mesher.InitForTest(data, CellSize, 0.2f, 1);
-        //marchingSquares.Mesher.Init(data, CellSize);
-        //marchingSquares.Mesher.InitForOptimized(data, CellSize, 0.5f, 1, MarchingSquaresMesher.OptimizationMode.NextLargestRect);
-
-        UpdateButtonLabel();
+        SetInit(currentInfoIndex);
     }
 
     public void SwitchMesherType()
     {
-        int count = System.Enum.GetNames(typeof(MesherType)).Length;
-        int type = ((int)marchingSquares.InitInfo.type + 1) % count;
-        marchingSquares.InitInfo.type = (MesherType) type;
-        marchingSquares.Init();
-
-        UpdateButtonLabel();
+        currentInfoIndex = (currentInfoIndex + 1) % initInfos.Length;
+        SetInit(currentInfoIndex);
     }
 
-    private void UpdateButtonLabel()
+    private void SetInit(int index)
     {
-        btnLabel.text = marchingSquares.InitInfo.type.ToString();
+        marchingSquares.Init(initInfos[index].info);
+        btnLabel.text = initInfos[index].name;
     }
 
     void Update()
     {
-        Data.Clear();
-        foreach(var brush in brushes)
+        if (!marchingSquares.IsGenerating)
         {
-            MoveBrush(brush);
-            ApplyBrush(brush);
+            Data.Clear();
+            foreach (var brush in brushes)
+            {
+                MoveBrush(brush);
+                ApplyBrush(brush);
+            }
+            Data.RemoveBorder();
+            marchingSquares.Regenerate();
         }
-        Data.RemoveBorder();
-        marchingSquares.Regenerate();
     }
 
     private void ApplyBrush(BrushInfo brush)

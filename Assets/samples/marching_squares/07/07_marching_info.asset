@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfa597b0262f04c058155b1db9f1cb32, type: 3}
-  m_Name: 01_marching
+  m_Name: 07_marching_info
   m_EditorClassIdentifier: 
-  sceneIndex: 14
-  sceneTitle: Marching  Squares Test
-  info: Some brushes moving around on a distance field, drawn by the MarchingSquaresMesher.
-    The mesher can be changed with the button.
+  sceneIndex: 20
+  sceneTitle: Marching Squares Editor
+  info: Test for the editor script to manipulate a MarchingSquares Data Component.
+    (It doesn't do anything in play mode.)

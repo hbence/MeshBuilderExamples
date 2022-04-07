@@ -232,6 +232,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1474751963}
+  infos:
+  - cellSize: 0.2
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 0
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
+  - cellSize: 0.2
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 2
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
+  - cellSize: 0.2
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 2
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 1
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
   march: {fileID: 931612673}
   radius: 1
   brushButtonLabel: {fileID: 2133903513}
@@ -805,20 +869,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 931612670}
   initializationPolicy: 0
+  GenerateOnInit: 0
   initialization:
-    type: 0
     cellSize: 0.2
-    height: 0.1
-    lerpToExactEdge: 1
-    taperedTopOffset: 0
-    taperedBottomOffset: 0.5
-    segmentedOffsets: []
+    generateUVs: 1
+    generateNormals: 1
+    submeshes:
+    - meshers:
+      - type: 2
+        lerpToExactEdge: 1
+        useCullingData: 0
+        useHeightData: 0
+        offsetY: 0
+        heightScale: 0
+        uScale: 1
+        vScale: 1
+        normalizeUV: 1
+        isFlipped: 0
+        scaledOffset: 0
+        optimizationMode: 0
+        sideHeight: 0
+        bottomHeightScale: 0
+        bottomScaledOffset: 0
+        segments: []
   dataCreationPolicy: 0
   dataCreationInfo:
     colNum: 50
     rowNum: 50
     hasHeightData: 0
     hasCullingData: 0
+  dataComponent: {fileID: 0}
+  AutoCompleteGeneration: 1
 --- !u!1 &1306483745
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 
 using MeshBuilder;
 
-using Unity.Mathematics;
+using Data = MeshBuilder.MarchingSquaresMesherData;
 
 public class MarchingSquareTest6 : MonoBehaviour
 {
@@ -27,11 +27,10 @@ public class MarchingSquareTest6 : MonoBehaviour
 
     [SerializeField] private Camera cam = null; 
 
-    [SerializeField] private MarchingSquaresComponent marchSide = null;
-    [SerializeField] private MarchingSquaresComponent marchTop = null;
+    [SerializeField] private MarchingSquaresComponent marchingMesher = null;
     [SerializeField] private float radius = 0.5f;
 
-    private float CellSize => marchTop.CellSize;
+    private float CellSize => marchingMesher.CellSize;
 
     private int modeIndex = 0;
     private int brushIndex = 0;
@@ -41,20 +40,18 @@ public class MarchingSquareTest6 : MonoBehaviour
     [SerializeField] private GameObject brushRoot = null;
     [SerializeField] private UnityEngine.UI.Text shapeLabel = null;
 
-    private MarchingSquaresMesher.Data data;
+    private Data data;
 
     void Start()
     {
-        data = new MarchingSquaresMesher.Data(50, 50);
+        data = new Data(50, 50);
         data.InitHeights();
 
-        marchSide.InitWithData(data);
-        marchTop.InitWithData(data);
+        marchingMesher.InitWithData(data);
         
         DrawAt(new Vector3(5, 0, 5), data);
 
-        marchSide.Regenerate();
-        marchTop.Regenerate();
+        marchingMesher.Regenerate();
 
         buttonLabel.text = ModeLabels[modeIndex];
         brushRoot.SetActive(false);
@@ -67,12 +64,11 @@ public class MarchingSquareTest6 : MonoBehaviour
             Vector3 pos = GetHitPosition(Input.mousePosition);
             DrawAt(pos, data);
 
-            marchSide.Regenerate();
-            marchTop.Regenerate();
+            marchingMesher.Regenerate();
         }
     }
 
-    private void DrawAt(Vector3 pos, MarchingSquaresMesher.Data data)
+    private void DrawAt(Vector3 pos, Data data)
     {
         switch ((Mode)modeIndex)
         {

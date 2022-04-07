@@ -2,7 +2,7 @@
 
 using MeshBuilder;
 
-using Unity.Mathematics;
+using Data = MeshBuilder.MarchingSquaresMesherData;
 
 public class MarchingSquareTest4 : MonoBehaviour
 {
@@ -43,8 +43,8 @@ public class MarchingSquareTest4 : MonoBehaviour
     private float CellSize1 => march1.CellSize;
     private float CellSize2 => march2.CellSize;
 
-    private MarchingSquaresMesher.Data data1 => march1.Data;
-    private MarchingSquaresMesher.Data data2 => march2.Data;
+    private Data data1 => march1.Data;
+    private Data data2 => march2.Data;
 
     void Start()
     {

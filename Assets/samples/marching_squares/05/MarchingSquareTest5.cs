@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
+using System;
 
 using MeshBuilder;
 
-using Unity.Mathematics;
-using System;
-using Unity.Profiling;
+using Data = MeshBuilder.MarchingSquaresMesherData;
 
 public class MarchingSquareTest5 : MonoBehaviour
 {
@@ -51,7 +50,7 @@ public class MarchingSquareTest5 : MonoBehaviour
     [SerializeField] private GameObject brushRoot = null;
     [SerializeField] private UnityEngine.UI.Text shapeLabel = null;
 
-    private MarchingSquaresMesher.Data[] data = null;
+    private Data[] data = null;
 
     private bool[] defCulling;
     
@@ -70,7 +69,7 @@ public class MarchingSquareTest5 : MonoBehaviour
             defCulling[i * ColNum] = true;
         }
 
-        data = new MarchingSquaresMesher.Data[meshers.Length];
+        data = new Data[meshers.Length];
         for(int i = 0; i < data.Length; ++i)
         {
             data[i] = meshers[i].Data;
@@ -116,7 +115,7 @@ public class MarchingSquareTest5 : MonoBehaviour
             case Mode.Add:
                 {
                     ApplyOperation(pos,
-                        (MarchingSquaresMesher.Data data, float x, float y) =>
+                        (Data data, float x, float y) =>
                         {
                             data.ApplyCircle(x, y, brushRadius, CellSize);
                         }
@@ -126,7 +125,7 @@ public class MarchingSquareTest5 : MonoBehaviour
             case Mode.IncreaseHeight:
                 {
                     ApplyOperation(pos,
-                        (MarchingSquaresMesher.Data data, float x, float y) =>
+                        (Data data, float x, float y) =>
                         {
                             if (brushIndex == 0)
                             {
@@ -143,7 +142,7 @@ public class MarchingSquareTest5 : MonoBehaviour
             case Mode.DecreaseHeight:
                 {
                     ApplyOperation(pos,
-                        (MarchingSquaresMesher.Data data, float x, float y) =>
+                        (Data data, float x, float y) =>
                         {
                             if (brushIndex == 0)
                             {
@@ -163,14 +162,14 @@ public class MarchingSquareTest5 : MonoBehaviour
     private void EraseAt(Vector3 pos)
     {
         ApplyOperation(pos, 
-            (MarchingSquaresMesher.Data data, float x, float y) =>
+            (Data data, float x, float y) =>
             {
                 data.RemoveCircle(x, y, brushRadius, CellSize);
             }
         );
     }
 
-    private void ApplyOperation(Vector3 pos, Action<MarchingSquaresMesher.Data, float, float> op)
+    private void ApplyOperation(Vector3 pos, Action<Data, float, float> op)
     {
         for (int i = 0; i < meshers.Length; ++i)
         {
