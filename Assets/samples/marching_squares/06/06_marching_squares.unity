@@ -772,7 +772,7 @@ MonoBehaviour:
         heightScale: 1
         uScale: 1
         vScale: 1
-        normalizeUV: 1
+        normalizeUV: 0
         isFlipped: 0
         scaledOffset: 0
         optimizationMode: 0
