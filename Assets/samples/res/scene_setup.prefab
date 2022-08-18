@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0.0033394843, y: -0.6475558, z: 0.6589575, w: 0.38266885}
   m_LocalPosition: {x: -9, y: -2.1213207, z: 7.778175}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8955720460853293983}
   m_RootOrder: 0
@@ -39,8 +40,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8955720460765644555}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1.24
   m_Range: 10
@@ -89,6 +91,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &8955720460853293980
@@ -103,6 +106,7 @@ GameObject:
   - component: {fileID: 8955720460853293982}
   - component: {fileID: 8955720460853293981}
   - component: {fileID: 8955720460853293976}
+  - component: {fileID: 1890262097139654182}
   m_Layer: 0
   m_Name: scene_setup
   m_TagString: MainCamera
@@ -120,6 +124,7 @@ Transform:
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
   m_LocalPosition: {x: 9, y: 10, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8955720460765644789}
   m_Father: {fileID: 0}
@@ -190,3 +195,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseMoveScale: 0.1
   movementSpeed: 2
+--- !u!114 &1890262097139654182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8955720460853293980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae1972fb1ef55d41b5692589495ecb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

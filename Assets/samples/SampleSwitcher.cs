@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class SampleSwitcher : MonoBehaviour
 {
@@ -22,7 +23,20 @@ public class SampleSwitcher : MonoBehaviour
     {
         Load(0);
 
-        SceneManager.sceneLoaded += (Scene, LoadSceneMode) => { cam.gameObject.SetActive(false); };
+        SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => 
+        { 
+            cam.gameObject.SetActive(false);
+            
+            foreach (var go in scene.GetRootGameObjects())
+            {
+                var localEventSystem = go.GetComponentInChildren<EventSystem>();
+                if (localEventSystem != null)
+                {
+                    localEventSystem.gameObject.SetActive(false);
+                    break;
+                }
+            }
+        };
         SceneManager.sceneUnloaded += (Scene) => { cam.gameObject.SetActive(true); };
 
         InitSceneSelectPanel();
